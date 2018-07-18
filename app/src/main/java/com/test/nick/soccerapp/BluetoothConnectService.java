@@ -50,7 +50,7 @@ public class BluetoothConnectService {
         }
     }
 
-    //Starts ConnectThread to connect as client to remote device.
+    //Starts ConnectThread to connect as client to remote device..
     public synchronized void connect(BluetoothDevice device){
         Log.d(TAG, "connect: connecting to "+ device);
 
