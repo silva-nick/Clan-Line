@@ -35,8 +35,7 @@ public class BluetoothConnectService {
         start();
     }
 
-    //Starts the connection service by causing the AcceptThread to begin
-    //Listening in server mode.
+    //Starts the connection service by causing the AcceptThread to begin server.
     public synchronized void start(){
         Log.d(TAG, "starting bt connection");
 
