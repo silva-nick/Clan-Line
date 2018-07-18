@@ -37,10 +37,10 @@ class Robot extends Entity {
     @Override
     public void update(){
         if(isSouth()) {
-            setY(getY() + 1);
+            setY(getY() + 2);
         }
         else{
-            setY(getY()-1);
+            setY(getY()-2);
         }
     }
 }
