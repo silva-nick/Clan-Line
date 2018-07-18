@@ -65,3 +65,8 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 }
+
+//sources:
+//http://www.independent-software.com/android-speeding-up-canvas-drawbitmap.html/
+//https://developer.android.com/topic/performance/graphics/load-bitmap
+//https://code.tutsplus.com/tutorials/working-with-git-in-android-studio--cms-30514
