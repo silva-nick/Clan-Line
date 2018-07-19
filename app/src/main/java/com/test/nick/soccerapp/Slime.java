@@ -17,8 +17,8 @@ class Slime extends Entity {
 
     private Bitmap currentBitmap = northArray[0];
 
-    public Slime(Resources resources, boolean side){
-        super("Slime",10,10,10,100, side, resources);
+    public Slime(Resources resources, boolean side, boolean lane){
+        super("Slime",10,10,10,100, side, lane, resources);
         if(isSouth()) {
             setX(Resources.getSystem().getDisplayMetrics().widthPixels/2);
             setY(0);
