@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
-class Robot extends Entity {
+class Slime extends Entity {
     private Bitmap[] southArray = new Bitmap[]{BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south1),
             BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south2),
             BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south3),
@@ -15,10 +15,8 @@ class Robot extends Entity {
             BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north3),
             BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north4)};
 
-    private Bitmap currentBitmap = northArray[0];
-
-    public Robot(Resources resources, boolean side){
-        super("Robot",10,10,10,100, side, resources);
+    public Slime(Resources R, boolean side){
+        super("Robot",10,10,10,100, side, R);
         if(isSouth()) {
             setX(Resources.getSystem().getDisplayMetrics().widthPixels/2);
             setY(0);
@@ -32,15 +30,8 @@ class Robot extends Entity {
 
     @Override
     public void draw(Canvas canvas, int frame){
-        if (frame % 4 == 0) {
-            if(isSouth()) {
-                currentBitmap = southArray[(frame/4)%4];
-            }
-            else {
-                currentBitmap = northArray[(frame/4)%4];
-            }
-        }
-        canvas.drawBitmap(currentBitmap, getX(), getY(), null);
+        if(isSouth()) {canvas.drawBitmap(southArray[frame%4], getX(), getY(), null);}
+        else {canvas.drawBitmap(northArray[frame%4], getX(), getY(), null);}
     }
 
     @Override
