@@ -6,14 +6,14 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
 class Robot extends Entity {
-    private Bitmap[] southArray = new Bitmap[]{BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south1),
-            BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south2),
-            BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south3),
-            BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south4)};
-    private Bitmap[] northArray = new Bitmap[]{BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north1),
-            BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north2),
-            BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north3),
-            BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north4)};
+    private Bitmap[] southArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south1), 160, 210, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south2), 160, 210, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south3), 160, 210, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south4), 160, 210, false)};
+    private Bitmap[] northArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north1), 160, 210, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north2), 160, 210, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north3), 160, 210, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north4), 160, 210, false)};
 
     private Bitmap currentBitmap = northArray[0];
 
@@ -49,7 +49,7 @@ class Robot extends Entity {
             setY(getY() + 2);
         }
         else{
-            setY(getY()-2);
+            setY(getY() - 2);
         }
     }
 }

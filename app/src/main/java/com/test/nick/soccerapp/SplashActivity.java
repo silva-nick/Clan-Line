@@ -12,10 +12,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class SplashActivity extends AppCompatActivity {
     private static final String TAG = "SplashActivity";
     private static final int BOUNCE_HEIGHT = -500;
+    private AnimatedVectorDrawableCompat avd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +30,33 @@ public class SplashActivity extends AppCompatActivity {
         //Calls imageView avd animation
         ImageView avdView = (ImageView)findViewById(R.id.imageView);
         Drawable d = avdView.getDrawable();
-        AnimatedVectorDrawableCompat avd = (AnimatedVectorDrawableCompat)d;
+        avd = (AnimatedVectorDrawableCompat)d;
         avd.start();
+
+        new Thread() {
+            public void run() {
+                int i = 0;
+                while (i<4) {
+                    try {
+                        Thread.sleep(3000);
+                        runOnUiThread(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                animation(findViewById(R.id.clan));
+                                animation(findViewById(R.id.line));
+                            }
+                        });
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    i++;
+                }
+            }
+        }.start();
     }
+
 
     //Called on screen click, moves to HomeActivity
     public void leaveSplash(View view){

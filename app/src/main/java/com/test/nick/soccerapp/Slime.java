@@ -6,17 +6,19 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
 class Slime extends Entity {
-    private Bitmap[] southArray = new Bitmap[]{BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south1),
-            BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south2),
-            BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south3),
-            BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south4)};
-    private Bitmap[] northArray = new Bitmap[]{BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north1),
-            BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north2),
-            BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north3),
-            BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north4)};
+    private Bitmap[] southArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south1), 160, 210, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south2), 160, 210, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south3), 160, 210, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south4), 160, 210, false)};
+    private Bitmap[] northArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north1), 160, 210, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north1), 160, 210, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north1), 160, 210, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north1), 160, 210, false)};
 
-    public Slime(Resources R, boolean side){
-        super("Robot",10,10,10,100, side, R);
+    private Bitmap currentBitmap = northArray[0];
+
+    public Slime(Resources resources, boolean side){
+        super("Slime",10,10,10,100, side, resources);
         if(isSouth()) {
             setX(Resources.getSystem().getDisplayMetrics().widthPixels/2);
             setY(0);
@@ -30,8 +32,15 @@ class Slime extends Entity {
 
     @Override
     public void draw(Canvas canvas, int frame){
-        if(isSouth()) {canvas.drawBitmap(southArray[frame%4], getX(), getY(), null);}
-        else {canvas.drawBitmap(northArray[frame%4], getX(), getY(), null);}
+        if (frame % 4 == 0) {
+            if(isSouth()) {
+                currentBitmap = southArray[(frame/4)%4];
+            }
+            else {
+                currentBitmap = northArray[(frame/4)%4];
+            }
+        }
+        canvas.drawBitmap(currentBitmap, getX(), getY(), null);
     }
 
     @Override
@@ -40,7 +49,7 @@ class Slime extends Entity {
             setY(getY() + 2);
         }
         else{
-            setY(getY()-2);
+            setY(getY() - 2);
         }
     }
 }
