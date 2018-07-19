@@ -8,16 +8,17 @@ public abstract class Entity {
     private String name;
     private int speed,  damage, attackSpeed, health;
     private int x, y;
-    private boolean side;
+    private boolean side, lane;
     static Resources resources;
 
-    public Entity(String name, int speed, int damage, int attackSpeed, int health, boolean side, Resources maps) {
+    public Entity(String name, int speed, int damage, int attackSpeed, int health, boolean side, boolean lane, Resources maps) {
         this.name = name;
         this.speed = speed;
         this.damage = damage;
         this.attackSpeed = attackSpeed;
         this.health = health;
         this.side = side;
+        this.lane = lane;
         resources = maps;
     }
 
@@ -51,6 +52,10 @@ public abstract class Entity {
 
     public boolean isSouth() {
         return side;
+    }
+
+    public boolean isLeft(){
+        return lane;
     }
 
     public int getX() {

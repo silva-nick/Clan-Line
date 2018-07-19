@@ -4,18 +4,19 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.util.AttributeSet;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
 
-class GameView extends SurfaceView implements SurfaceHolder.Callback {
+class GameView extends SurfaceView implements SurfaceHolder.Callback{
     private static final String TAG = "GameView";
     private GameThread mainThread;
     private Robot test;
     private Robot test2;
     private int count = 0;
 
-    public GameView(Context context) {
-        super(context);
+    public GameView(Context context, AttributeSet attributeSet) {
+        super(context, attributeSet);
         getHolder().addCallback(this);
         mainThread = new GameThread(getHolder(),this);
         setFocusable(true);
@@ -25,8 +26,8 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
         mainThread.setRunning(true);
         mainThread.start();
-        test = new Robot(getResources(), false);
-        test2 = new Robot(getResources(), true);
+        test = new Robot(getResources(), false, true);
+        test2 = new Robot(getResources(), true, false);
     }
 
     @Override
@@ -62,6 +63,10 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback {
             test.draw(canvas, count);
             test2.draw(canvas, count);
         }
+    }
+
+    public void add(Entity entity, boolean lane){
+
     }
 }
 

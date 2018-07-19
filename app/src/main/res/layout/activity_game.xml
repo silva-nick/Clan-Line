@@ -4,18 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".GameActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="mynamejaf"
-        android:id="@+id/game_text"/>
 
-    <Button
-        android:layout_width="wrap_content"
+
+    <com.test.nick.soccerapp.GameView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Test Message"
-        android:onClick="testMessage"/>
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="75dp"
+            android:layout_weight="1"
+            android:src="@drawable/chartile_1"
+            android:id="@+id/tile1"
+            android:onClick="charSelected"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="75dp"
+            android:layout_weight="1"
+            android:src="@drawable/chartile_2"
+            android:id="@+id/tile2"
+            android:onClick="charSelected"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="75dp"
+            android:layout_weight="1"
+            android:src="@drawable/chartile_3"
+            android:id="@+id/tile3"
+            android:onClick="charSelected"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="75dp"
+            android:layout_weight="1"
+            android:src="@drawable/chartile_4"
+            android:id="@+id/tile4"
+            android:onClick="charSelected"/>
+    </LinearLayout>
+
 
 </LinearLayout>
