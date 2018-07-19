@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -189,6 +190,13 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        AlphaAnimation animation1 = new AlphaAnimation(0.2f, 0.9f);
+        animation1.setDuration(2000);
+        animation1.setStartOffset(1000);
+        animation1.setFillAfter(true);
+        findViewById(R.id.connect_text).startAnimation(animation1);
+
         globalApplication = ((GlobalApplication)getApplication());
         Log.d(TAG, "onCreate: THE APP IS "+(globalApplication==null));
         //turns on discoverability on startup
