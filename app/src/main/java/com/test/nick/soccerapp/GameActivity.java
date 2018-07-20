@@ -37,6 +37,27 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void charSelected(View view) {
+        View resetView = findViewById(R.id.tile1);
+        if(resetView.isSelected()){
+            resetView.setSelected(false);
+            ((ImageView)resetView).setImageResource(R.drawable.chartile_1);
+        }
+        resetView = findViewById(R.id.tile2);
+        if(resetView.isSelected()){
+            resetView.setSelected(false);
+            ((ImageView)resetView).setImageResource(R.drawable.chartile_2);
+        }
+        resetView = findViewById(R.id.tile3);
+        if(resetView.isSelected()){
+            resetView.setSelected(false);
+            ((ImageView)resetView).setImageResource(R.drawable.chartile_3);
+        }
+        resetView = findViewById(R.id.tile4);
+        if(resetView.isSelected()){
+            resetView.setSelected(false);
+            ((ImageView)resetView).setImageResource(R.drawable.chartile_4);
+        }
+        view.setSelected(true);
         switch (view.getId()){
             case R.id.tile1:
                 Log.d(TAG, "charSelected: Tile1");
