@@ -8,26 +8,28 @@ import android.util.AttributeSet;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
 
+import java.util.ArrayList;
+
 class GameView extends SurfaceView implements SurfaceHolder.Callback{
     private static final String TAG = "GameView";
     private GameThread mainThread;
     private Robot test;
     private Robot test2;
     private int count = 0;
+    private ArrayList<Entity> charList;
 
     public GameView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
         getHolder().addCallback(this);
         mainThread = new GameThread(getHolder(),this);
         setFocusable(true);
+        charList = new ArrayList<Entity>();
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
         mainThread.setRunning(true);
         mainThread.start();
-        test = new Robot(getResources(), false, true);
-        test2 = new Robot(getResources(), true, false);
     }
 
     @Override
@@ -50,8 +52,9 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback{
     }
 
     public void update(){
-        test.update();
-        test2.update();
+        for(Entity e : charList){
+            e.update();
+        }
     }
 
     @Override
@@ -60,13 +63,14 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback{
         super.draw(canvas);
         if (canvas != null) {
             canvas.drawColor(Color.WHITE);
-            test.draw(canvas, count);
-            test2.draw(canvas, count);
+            for(Entity e : charList){
+                e.draw(canvas, count);
+            }
         }
     }
 
-    public void add(Entity entity, boolean lane){
-
+    public void add(Entity entity){
+        charList.add(entity);
     }
 }
 

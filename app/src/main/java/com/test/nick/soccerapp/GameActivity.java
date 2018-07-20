@@ -17,10 +17,11 @@ public class GameActivity extends AppCompatActivity {
         public void handleMessage(Message msg){
             Log.d(TAG, "incoming message");
             byte[] readBuf  = (byte[]) msg.obj;
-            String writeMessage = new String(readBuf, 0, msg.arg1);;
+            String writeMessage = new String(readBuf, 0, msg.arg1);
 
         }
     };
+    private GameView gameView;
 
 
     private ConnectedThread messageThread;
@@ -32,6 +33,7 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         Log.d(TAG, "Starting GameActivity");
         GlobalApplication app = (GlobalApplication)getApplication();
+        gameView = findViewById(R.id.gameView);
         //messageThread = new ConnectedThread(app.socket, mHandler);
         //messageThread.start();
     }
@@ -62,10 +64,12 @@ public class GameActivity extends AppCompatActivity {
             case R.id.tile1:
                 Log.d(TAG, "charSelected: Tile1");
                 ((ImageView)view).setImageResource(R.drawable.chartile_selected_1);
+                gameView.add(new Robot(getResources(), false, true));
                 break;
             case R.id.tile2:
                 Log.d(TAG, "charSelected: Tile2");
                 ((ImageView)view).setImageResource(R.drawable.chartile_selected_2);
+                gameView.add(new Robot(getResources(), true, false));
                 break;
             case R.id.tile3:
                 Log.d(TAG, "charSelected: Tile3");
