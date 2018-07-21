@@ -13,6 +13,9 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class GameActivity extends AppCompatActivity {
     private static final String TAG = "GameActivity";
 
@@ -32,7 +35,9 @@ public class GameActivity extends AppCompatActivity {
         }
     };
     private GameView gameView;
+
     private int typeSelected = 5;
+    private int mana = 0;
 
     private ConnectedThread messageThread;
 
@@ -48,6 +53,21 @@ public class GameActivity extends AppCompatActivity {
         //messageThread = new ConnectedThread(app.socket, mHandler);
         //messageThread.start();
 
+        Timer manaTimer = new Timer();
+        manaTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(getMana()<10) {
+                            setMana(getMana() + 1);
+                        }
+                    }
+                });
+            }
+        }, 2500, 2500);
+
         gameView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -56,15 +76,19 @@ public class GameActivity extends AppCompatActivity {
                         switch (typeSelected){
                             case 0:
                                 gameView.add(new Robot(getResources(),false, true ));
+                                setMana(getMana()-4);
                                 break;
                             case 1:
                                 gameView.add(new Robot(getResources(),false, true ));
+                                setMana(getMana()-4);
                                 break;
                             case 2:
                                 gameView.add(new Robot(getResources(),false, true ));
+                                setMana(getMana()-6);
                                 break;
                             case 3:
                                 gameView.add(new Robot(getResources(),false, true ));
+                                setMana(getMana()-3);
                                 break;
                             default: break;
                         }
@@ -73,15 +97,19 @@ public class GameActivity extends AppCompatActivity {
                         switch (typeSelected){
                             case 0:
                                 gameView.add(new Robot(getResources(),false, false ));
+                                setMana(getMana()-4);
                                 break;
                             case 1:
                                 gameView.add(new Robot(getResources(),false, false ));
+                                setMana(getMana()-4);
                                 break;
                             case 2:
                                 gameView.add(new Robot(getResources(),false, false ));
+                                setMana(getMana()-6);
                                 break;
                             case 3:
                                 gameView.add(new Robot(getResources(),false, false ));
+                                setMana(getMana()-3);
                                 break;
                             default: break;
                         }
@@ -136,6 +164,55 @@ public class GameActivity extends AppCompatActivity {
                 ((ImageView)view).setImageResource(R.drawable.chartile_selected_4);
                 typeSelected = 3;
                 break;
+        }
+    }
+
+    public int getMana(){
+        return mana;
+    }
+
+    public void setMana(int x){
+        mana = x;
+        ImageView manaView = (ImageView)findViewById(R.id.mana_bar);
+        TextView manaText = (TextView)findViewById(R.id.mana_text);
+
+        manaText.setText(getMana()+"");
+        switch (mana){
+            case 0:
+                manaView.setImageResource(R.drawable.mana_0);
+                break;
+            case 1:
+                manaView.setImageResource(R.drawable.mana_1);
+                break;
+            case 2:
+                manaView.setImageResource(R.drawable.mana_2);
+                break;
+            case 3:
+                manaView.setImageResource(R.drawable.mana_3);
+                break;
+            case 4:
+                manaView.setImageResource(R.drawable.mana_4);
+                break;
+            case 5:
+                manaView.setImageResource(R.drawable.mana_5);
+                break;
+            case 6:
+                manaView.setImageResource(R.drawable.mana_6);
+                break;
+            case 7:
+                manaView.setImageResource(R.drawable.mana_7);
+                break;
+            case 8:
+                manaView.setImageResource(R.drawable.mana_8);
+                break;
+            case 9:
+                manaView.setImageResource(R.drawable.mana_9);
+                break;
+            case 10:
+                manaView.setImageResource(R.drawable.mana_10);
+                break;
+            default:
+                manaView.setImageResource(R.drawable.mana_0);
         }
     }
 }

@@ -1,14 +1,11 @@
 package com.test.nick.soccerapp;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
-import android.view.View;
 
 import java.util.ArrayList;
 
@@ -26,8 +23,6 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback{
         mainThread = new GameThread(getHolder(),this);
         setFocusable(true);
         charList = new ArrayList<Entity>();
-
-
     }
 
     @Override
