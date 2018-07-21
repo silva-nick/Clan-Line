@@ -17,6 +17,7 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback{
     private Robot test2;
     private int count = 0;
     private ArrayList<Entity> charList;
+    private ConnectedThread messageThread;
 
     public GameView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
@@ -51,6 +52,10 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback{
         }
     }
 
+    public void sendThread(ConnectedThread thread){
+        messageThread = thread;
+    }
+
     public void update(){
         for(Entity e : charList){
 
@@ -60,8 +65,7 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback{
                     e2.setFighting(e);
                 }
             }
-            if(e.getHealth()<=0 || e.getY() > Resources.getSystem().getDisplayMetrics().heightPixels
-                    || e.getY() < 0){
+            if(e.getHealth()<=0){
                 if (e.isFighting()) {
                     ArrayList<Entity> enemies = e.getEnemies();
                     for(Entity remove : enemies){
@@ -72,6 +76,28 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback{
                 charList.remove(e);
                 e = null;
                 break;
+            }
+            if(e.getY() < -50){
+                byte[] messageArray = new byte[2];
+                switch(e.getName()){
+                    case "Witch":
+                        messageArray[0] = 0;
+                        break;
+                    case "Fighter":
+                        messageArray[0] = 1;
+                        break;
+                    case "Robot":
+                        messageArray[0] = 2;
+                        break;
+                    case "Slime":
+                        messageArray[0] = 3;
+                        break;
+                        default: break;
+                }
+                messageArray[1] = (byte) (e.isLeft() ? 1 : 0);
+                charList.remove(e);
+                e = null;
+                messageThread.write(messageArray);
             }
             e.update(count);
         }
