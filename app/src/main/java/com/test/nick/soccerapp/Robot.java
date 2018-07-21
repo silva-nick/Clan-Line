@@ -4,6 +4,8 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 
 import java.util.ArrayList;
 
@@ -36,6 +38,16 @@ class Robot extends Entity {
 
     @Override
     public void draw(Canvas canvas, int frame){
+        canvas.drawBitmap(currentBitmap, getX(), getY(), null);
+        Paint paint = new Paint();
+        paint.setColor(Color.BLACK);
+        paint.setTextSize(20);
+        if(isSouth()) {
+            canvas.drawText(String.valueOf(getHealth()), getX()-5, getY()-5, paint);
+        }
+        else {
+            canvas.drawText(String.valueOf(getHealth()), getX()-5, getY()+215, paint);
+        }
         if (frame % 4 == 0) {
             if(isSouth()) {
                 currentBitmap = southArray[(frame/4)%4];
@@ -44,7 +56,6 @@ class Robot extends Entity {
                 currentBitmap = northArray[(frame/4)%4];
             }
         }
-        canvas.drawBitmap(currentBitmap, getX(), getY(), null);
     }
 
     @Override
