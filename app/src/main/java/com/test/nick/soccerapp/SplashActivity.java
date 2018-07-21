@@ -60,7 +60,7 @@ public class SplashActivity extends AppCompatActivity {
 
     //Called on screen click, moves to HomeActivity
     public void leaveSplash(View view){
-        Intent intent = new Intent(this, GameActivity.class);
+        Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
     }
 

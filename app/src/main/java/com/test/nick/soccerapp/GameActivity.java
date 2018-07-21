@@ -25,12 +25,37 @@ public class GameActivity extends AppCompatActivity {
     public static final int HERO_FOUR = 3;
 
 
+    @SuppressLint("HandlerLeak")
     private final Handler mHandler= new Handler(){
         @Override
         public void handleMessage(Message msg){
             Log.d(TAG, "incoming message");
-            byte[] readBuf  = (byte[]) msg.obj;
-            String writeMessage = new String(readBuf, 0, msg.arg1);
+            switch (msg.what){
+                case 0:
+                    byte[] readBuf  = (byte[]) msg.obj;
+                    switch (readBuf[0]){
+                        case 0:
+                            gameView.add(new Robot(getResources(), true, readBuf[1]==1));
+                            break;
+                        case 1:
+                            gameView.add(new Robot(getResources(), true, readBuf[1]==1));
+                            break;
+                        case 2:
+                            gameView.add(new Robot(getResources(), true, readBuf[1]==1));
+                            break;
+                        case 3:
+                            gameView.add(new Robot(getResources(), true, readBuf[1]==1));
+                            break;
+                        default:
+                            break;
+                    }
+
+                    break;
+                case 1:
+                    //gameover
+                    break;
+            }
+
 
         }
     };
@@ -49,9 +74,10 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         Log.d(TAG, "Starting GameActivity");
         GlobalApplication app = (GlobalApplication)getApplication();
+        messageThread = new ConnectedThread(app.socket, mHandler);
+        messageThread.start();
         gameView = findViewById(R.id.gameView);
-        //messageThread = new ConnectedThread(app.socket, mHandler);
-        //messageThread.start();
+        gameView.sendThread(messageThread);
 
         Timer manaTimer = new Timer();
         manaTimer.scheduleAtFixedRate(new TimerTask() {
