@@ -122,7 +122,6 @@ public class BluetoothConnectService {
             BluetoothSocket socket = null;
             // Keep listening until exception occurs or a socket is returned.
             try {
-
                 socket = mmServerSocket.accept();
                 Log.d(TAG, "RFCOM server socket accepted");
             } catch (IOException e) {
