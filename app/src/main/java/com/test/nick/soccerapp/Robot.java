@@ -38,7 +38,6 @@ class Robot extends Entity {
 
     @Override
     public void draw(Canvas canvas, int frame){
-        canvas.drawBitmap(currentBitmap, getX(), getY(), null);
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);
         paint.setTextSize(20);
@@ -56,6 +55,7 @@ class Robot extends Entity {
                 currentBitmap = northArray[(frame/4)%4];
             }
         }
+        canvas.drawBitmap(currentBitmap, getX(), getY(), null);
     }
 
     @Override
