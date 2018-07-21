@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 
+import java.util.ArrayList;
+
 class Robot extends Entity {
     private Bitmap[] southArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south3_1), 160, 210, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south3_2), 160, 210, false),
@@ -18,7 +20,7 @@ class Robot extends Entity {
     private Bitmap currentBitmap = northArray[0];
 
     public Robot(Resources resources, boolean side, boolean lane){
-        super("Robot",10,10,10,100, side, lane, resources);
+        super("Robot",10,10,10,1000, side, lane, resources);
         if(isSouth()) {
             if(isLeft()){setX(Resources.getSystem().getDisplayMetrics().widthPixels/3-southArray[0].getWidth());}
             else{setX(Resources.getSystem().getDisplayMetrics().widthPixels*2/3);}
@@ -46,12 +48,16 @@ class Robot extends Entity {
     }
 
     @Override
-    public void update(){
-        if(isSouth()) {
+    public void update(int frame){
+        if(isSouth() && !isFighting()) {
             setY(getY() + 2);
         }
-        else{
+        else if(!isFighting()){
             setY(getY() - 2);
+        }
+        ArrayList<Entity> enemies = getEnemies();
+        for(Entity e : enemies){
+            fighting(e, frame);
         }
     }
 }

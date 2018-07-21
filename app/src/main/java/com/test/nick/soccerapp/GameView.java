@@ -1,6 +1,7 @@
 package com.test.nick.soccerapp;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.util.AttributeSet;
@@ -52,7 +53,27 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback{
 
     public void update(){
         for(Entity e : charList){
-            e.update();
+
+            for(Entity e2 : charList){
+                if(e.isCollided(e2) && e != e2 && e.isLeft()==e2.isLeft()){
+                    e.setFighting(e2);
+                    e2.setFighting(e);
+                }
+            }
+            if(e.getHealth()<=0 || e.getY() > Resources.getSystem().getDisplayMetrics().heightPixels
+                    || e.getY() < 0){
+                if (e.isFighting()) {
+                    ArrayList<Entity> enemies = e.getEnemies();
+                    for(Entity remove : enemies){
+                        remove.getEnemies().remove(e);
+                    }
+                }
+
+                charList.remove(e);
+                e = null;
+                break;
+            }
+            e.update(count);
         }
     }
 

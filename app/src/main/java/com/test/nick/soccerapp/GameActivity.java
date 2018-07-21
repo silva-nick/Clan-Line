@@ -107,6 +107,7 @@ public class GameActivity extends AppCompatActivity {
                             case 0:
                                 if(getMana()>=4) {
                                     gameView.add(new Robot(getResources(), false, false));
+                                    gameView.add(new Robot(getResources(), true, false));
                                     setMana(getMana() - 4);
                                 }
                                 break;

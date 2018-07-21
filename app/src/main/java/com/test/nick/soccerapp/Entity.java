@@ -3,12 +3,17 @@ package com.test.nick.soccerapp;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.util.Log;
+
+import java.util.ArrayList;
 
 public abstract class Entity {
+    private static final String TAG = "Entity";
     private String name;
     private int speed,  damage, attackSpeed, health;
     private int x, y;
     private boolean side, lane;
+    private ArrayList<Entity> enemies = new ArrayList<Entity>();
     static Resources resources;
 
     public Entity(String name, int speed, int damage, int attackSpeed, int health, boolean side, boolean lane, Resources maps) {
@@ -78,7 +83,43 @@ public abstract class Entity {
         return resources;
     }
 
+    public boolean isCollided(Entity e){
+        if(isSouth() && e.isSouth() || !isSouth() && !e.isSouth()){
+            return false;
+        }
+        else if((isSouth() && !e.isSouth()) && (this.getY()+210 > e.getY()-20)){
+            return true;
+        }
+        else if((!isSouth() && e.isSouth()) && (this.getY()-20 < e.getY()+210)){
+            return true;
+        }
+        return false;
+    }
+
+    public void setFighting(Entity e){
+        if(e==null){
+            enemies.remove(e);
+            Log.d(TAG, "Enemy removed");
+        }
+        if(enemies.contains(e)){return;}
+        enemies.add(e);
+    }
+
+    public boolean isFighting(){
+        return !enemies.isEmpty();
+    }
+
+    public ArrayList<Entity> getEnemies() {
+        return enemies;
+    }
+
+    public void fighting(Entity enemy, int frame){
+        if(frame%enemy.getAttackSpeed()==0){
+            this.setHealth(this.getHealth()-enemy.getDamage());
+        }
+    }
+
     public abstract void draw(Canvas canvas, int frame);
 
-    public abstract void update();
+    public abstract void update(int frame);
 }

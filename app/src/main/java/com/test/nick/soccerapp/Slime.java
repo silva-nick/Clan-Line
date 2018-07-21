@@ -1,4 +1,4 @@
-package com.test.nick.soccerapp;
+/*package com.test.nick.soccerapp;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -52,4 +52,4 @@ class Slime extends Entity {
             setY(getY() - 2);
         }
     }
-}
+}*/
