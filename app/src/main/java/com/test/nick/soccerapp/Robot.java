@@ -27,7 +27,7 @@ class Robot extends Entity {
         else{
             if(isLeft()){setX(Resources.getSystem().getDisplayMetrics().widthPixels/3-southArray[0].getWidth());}
             else{setX(Resources.getSystem().getDisplayMetrics().widthPixels*2/3);}
-            setY(Resources.getSystem().getDisplayMetrics().heightPixels);
+            setY(Resources.getSystem().getDisplayMetrics().heightPixels-50);
         }
 
     }
