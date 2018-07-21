@@ -72,23 +72,32 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN){
+                    resetTiles();
                     if(event.getX()< Resources.getSystem().getDisplayMetrics().widthPixels/2){
                         switch (typeSelected){
                             case 0:
-                                gameView.add(new Robot(getResources(),false, true ));
-                                setMana(getMana()-4);
+                                if(getMana()>=4) {
+                                    gameView.add(new Robot(getResources(), false, true));
+                                    setMana(getMana() - 4);
+                                }
                                 break;
                             case 1:
-                                gameView.add(new Robot(getResources(),false, true ));
-                                setMana(getMana()-4);
+                                if(getMana()>=4) {
+                                    gameView.add(new Robot(getResources(), false, true));
+                                    setMana(getMana() - 4);
+                                }
                                 break;
                             case 2:
-                                gameView.add(new Robot(getResources(),false, true ));
-                                setMana(getMana()-6);
+                                if(getMana()>=6) {
+                                    gameView.add(new Robot(getResources(), false, true));
+                                    setMana(getMana() - 6);
+                                }
                                 break;
                             case 3:
-                                gameView.add(new Robot(getResources(),false, true ));
-                                setMana(getMana()-3);
+                                if(getMana()>=3) {
+                                    gameView.add(new Robot(getResources(), false, true));
+                                    setMana(getMana() - 3);
+                                }
                                 break;
                             default: break;
                         }
@@ -96,20 +105,28 @@ public class GameActivity extends AppCompatActivity {
                     else{
                         switch (typeSelected){
                             case 0:
-                                gameView.add(new Robot(getResources(),false, false ));
-                                setMana(getMana()-4);
+                                if(getMana()>=4) {
+                                    gameView.add(new Robot(getResources(), false, false));
+                                    setMana(getMana() - 4);
+                                }
                                 break;
                             case 1:
-                                gameView.add(new Robot(getResources(),false, false ));
-                                setMana(getMana()-4);
+                                if(getMana()>=4) {
+                                    gameView.add(new Robot(getResources(), false, false));
+                                    setMana(getMana() - 4);
+                                }
                                 break;
                             case 2:
-                                gameView.add(new Robot(getResources(),false, false ));
-                                setMana(getMana()-6);
+                                if(getMana()>=6) {
+                                    gameView.add(new Robot(getResources(), false, false));
+                                    setMana(getMana() - 6);
+                                }
                                 break;
                             case 3:
-                                gameView.add(new Robot(getResources(),false, false ));
-                                setMana(getMana()-3);
+                                if(getMana()>=3) {
+                                    gameView.add(new Robot(getResources(), false, false));
+                                    setMana(getMana() - 3);
+                                }
                                 break;
                             default: break;
                         }
@@ -121,6 +138,33 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void charSelected(View view) {
+        resetTiles();
+        view.setSelected(true);
+        switch (view.getId()){
+            case R.id.tile1:
+                Log.d(TAG, "charSelected: Tile1");
+                ((ImageView)view).setImageResource(R.drawable.chartile_selected_1);
+                typeSelected = 0;
+                break;
+            case R.id.tile2:
+                Log.d(TAG, "charSelected: Tile2");
+                ((ImageView)view).setImageResource(R.drawable.chartile_selected_2);
+                typeSelected = 1;
+                break;
+            case R.id.tile3:
+                Log.d(TAG, "charSelected: Tile3");
+                ((ImageView)view).setImageResource(R.drawable.chartile_selected_3);
+                typeSelected = 2;
+                break;
+            case R.id.tile4:
+                Log.d(TAG, "charSelected: Tile4");
+                ((ImageView)view).setImageResource(R.drawable.chartile_selected_4);
+                typeSelected = 3;
+                break;
+        }
+    }
+
+    private void resetTiles(){
         View resetView = findViewById(R.id.tile1);
         if(resetView.isSelected()){
             resetView.setSelected(false);
@@ -140,30 +184,6 @@ public class GameActivity extends AppCompatActivity {
         if(resetView.isSelected()){
             resetView.setSelected(false);
             ((ImageView)resetView).setImageResource(R.drawable.chartile_4);
-        }
-        view.setSelected(true);
-        switch (view.getId()){
-            case R.id.tile1:
-                Log.d(TAG, "charSelected: Tile1");
-                ((ImageView)view).setImageResource(R.drawable.chartile_selected_1);
-                typeSelected = 0;
-                break;
-            case R.id.tile2:
-                Log.d(TAG, "charSelected: Tile2");
-                ((ImageView)view).setImageResource(R.drawable.chartile_selected_2);
-                gameView.add(new Robot(getResources(), true, false));
-                typeSelected = 1;
-                break;
-            case R.id.tile3:
-                Log.d(TAG, "charSelected: Tile3");
-                ((ImageView)view).setImageResource(R.drawable.chartile_selected_3);
-                typeSelected = 2;
-                break;
-            case R.id.tile4:
-                Log.d(TAG, "charSelected: Tile4");
-                ((ImageView)view).setImageResource(R.drawable.chartile_selected_4);
-                typeSelected = 3;
-                break;
         }
     }
 
