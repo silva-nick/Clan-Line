@@ -35,16 +35,16 @@ public class GameActivity extends AppCompatActivity {
                     byte[] readBuf  = (byte[]) msg.obj;
                     switch (readBuf[0]){
                         case 0:
-                            gameView.add(new Robot(getResources(), true, readBuf[1]==1));
+                            gameView.add(new Robot(getResources(), true, readBuf[1]!=1));
                             break;
                         case 1:
-                            gameView.add(new Robot(getResources(), true, readBuf[1]==1));
+                            gameView.add(new Robot(getResources(), true, readBuf[1]!=1));
                             break;
                         case 2:
-                            gameView.add(new Robot(getResources(), true, readBuf[1]==1));
+                            gameView.add(new Robot(getResources(), true, readBuf[1]!=1));
                             break;
                         case 3:
-                            gameView.add(new Robot(getResources(), true, readBuf[1]==1));
+                            gameView.add(new Robot(getResources(), true, readBuf[1]!=1));
                             break;
                         default:
                             break;

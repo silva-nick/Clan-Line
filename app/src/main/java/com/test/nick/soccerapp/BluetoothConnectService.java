@@ -131,8 +131,8 @@ public class BluetoothConnectService {
 
             if (socket != null) {
                 try {
-                    connected(socket);
                     mmServerSocket.close();
+                    connected(socket);
                 } catch (IOException e) {
                     Log.e(TAG, "Error closing serverSocket",e );
                 }

@@ -77,7 +77,7 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback{
                 e = null;
                 break;
             }
-            if(e.getY() < 0){
+            if(e.getY() < -50){
                 byte[] messageArray = new byte[2];
                 switch(e.getName()){
                     case "Witch":
@@ -95,7 +95,8 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback{
                         default: break;
                 }
                 messageArray[1] = (byte) (e.isLeft() ? 1 : 0);
-
+                charList.remove(e);
+                e = null;
                 messageThread.write(messageArray);
             }
             e.update(count);
