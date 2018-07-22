@@ -35,16 +35,16 @@ public class GameActivity extends AppCompatActivity {
                     byte[] readBuf  = (byte[]) msg.obj;
                     switch (readBuf[0]){
                         case 0:
-                            gameView.add(new Robot(getResources(), true, readBuf[1]!=1));
+                            gameView.add(new Witch(getResources(), true, readBuf[1]!=1));
                             break;
                         case 1:
-                            gameView.add(new Robot(getResources(), true, readBuf[1]!=1));
+                            gameView.add(new Fighter(getResources(), true, readBuf[1]!=1));
                             break;
                         case 2:
                             gameView.add(new Robot(getResources(), true, readBuf[1]!=1));
                             break;
                         case 3:
-                            gameView.add(new Robot(getResources(), true, readBuf[1]!=1));
+                            gameView.add(new Slime(getResources(), true, readBuf[1]!=1));
                             break;
                         default:
                             break;
@@ -74,8 +74,8 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         Log.d(TAG, "Starting GameActivity");
         GlobalApplication app = (GlobalApplication)getApplication();
-        //messageThread = new ConnectedThread(app.socket, mHandler);
-       // messageThread.start();
+        messageThread = new ConnectedThread(app.socket, mHandler);
+        messageThread.start();
         gameView = findViewById(R.id.gameView);
         gameView.sendThread(messageThread);
         gameView.add(new Base(getResources(), false, true));

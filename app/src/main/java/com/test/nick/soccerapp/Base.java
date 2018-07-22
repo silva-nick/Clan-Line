@@ -23,14 +23,6 @@ class Base extends Entity {
     }
 
     @Override
-    public boolean isCollided(Entity e){
-        if(this.getY()+10 < e.getY()+210){
-            return true;
-        }
-        return false;
-    }
-
-    @Override
     public void draw(Canvas canvas, int frame){
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);

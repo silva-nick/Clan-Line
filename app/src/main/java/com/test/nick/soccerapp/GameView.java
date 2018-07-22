@@ -61,7 +61,7 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback{
         for(Entity e : charList){
 
             for(Entity e2 : charList){
-                if(e.isCollided(e2) && e != e2 && e.isLeft()==e2.isLeft()){
+                if(e.isCollided(e2) && e != e2 && e.isLeft()==e2.isLeft() || e.isCollided(e2) && e != e2 && (e.getName().equals("Base") || e2.getName().equals("Base"))){
                     e.setFighting(e2);
                     e2.setFighting(e);
                 }
