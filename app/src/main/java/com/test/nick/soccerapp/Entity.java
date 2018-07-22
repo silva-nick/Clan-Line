@@ -16,7 +16,7 @@ public abstract class Entity {
     private ArrayList<Entity> enemies = new ArrayList<Entity>();
     static Resources resources;
 
-    public Entity(String name, int speed, int damage, int attackSpeed, int health, boolean side, boolean lane,Resources maps) {
+    public Entity(String name, int speed, int damage, int attackSpeed, int health, boolean side, boolean lane, Resources maps) {
         this.name = name;
         this.speed = speed;
         this.damage = damage;

@@ -18,6 +18,22 @@ class Robot extends Entity {
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north3_2), 160, 210, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north3_3), 160, 210, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north3_4), 160, 210, false)};
+    private Bitmap[] diagArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diag3_1), 160, 210, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diag3_2), 160, 210, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diag3_3), 160, 210, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diag3_4), 160, 210, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagr3_1), 160, 210, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagr3_2), 160, 210, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagr3_3), 160, 210, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagr3_4), 160, 210, false)};
+    private Bitmap[] diagupArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagup3_1), 160, 210, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagup3_2), 160, 210, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagup3_3), 160, 210, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagup3_4), 160, 210, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagrup3_1), 160, 210, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagrup3_2), 160, 210, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagrup3_3), 160, 210, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagrup3_4), 160, 210, false)};
 
     private Bitmap currentBitmap = northArray[0];
 
@@ -36,7 +52,7 @@ class Robot extends Entity {
             setY(-50);
         }
         else{
-            setY(Resources.getSystem().getDisplayMetrics().heightPixels-50);
+            setY(Resources.getSystem().getDisplayMetrics().heightPixels-80);
         }
 
     }
@@ -54,10 +70,30 @@ class Robot extends Entity {
         }
         if (frame % 4 == 0) {
             if(isSouth()) {
-                currentBitmap = southArray[(frame/4)%4];
+                if(isDiagonal()){
+                    if(isLeft()){
+                        currentBitmap = diagArray[(frame/4)%4];
+                    }
+                    else{
+                        currentBitmap = diagArray[(frame/4)%4+4];
+                    }
+                }
+                else {
+                    currentBitmap = southArray[(frame/4)%4];
+                }
             }
             else {
-                currentBitmap = northArray[(frame/4)%4];
+                if(isDiagonal()){
+                    if(isLeft()){
+                        currentBitmap = diagupArray[(frame/4)%4+4];
+                    }
+                    else{
+                        currentBitmap = diagupArray[(frame/4)%4];
+                    }
+                }
+                else {
+                    currentBitmap = northArray[(frame/4)%4];
+                }
             }
         }
         canvas.drawBitmap(currentBitmap, getX(), getY(), null);

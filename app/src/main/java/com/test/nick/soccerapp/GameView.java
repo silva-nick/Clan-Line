@@ -80,7 +80,7 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback{
                 e = null;
                 break;
             }
-            if(e.getY() < -50){
+            if(e.getY() < -80){
                 byte[] messageArray = new byte[2];
                 switch(e.getName()){
                     case "Witch":
