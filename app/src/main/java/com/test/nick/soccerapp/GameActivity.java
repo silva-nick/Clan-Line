@@ -78,6 +78,7 @@ public class GameActivity extends AppCompatActivity {
        // messageThread.start();
         gameView = findViewById(R.id.gameView);
         gameView.sendThread(messageThread);
+        gameView.add(new Base(getResources(), false, true));
 
         Timer manaTimer = new Timer();
         manaTimer.scheduleAtFixedRate(new TimerTask() {
@@ -103,7 +104,7 @@ public class GameActivity extends AppCompatActivity {
                         switch (typeSelected){
                             case 0:
                                 if(getMana()>=4) {
-                                    gameView.add(new Robot(getResources(), false, true));
+                                    gameView.add(new Robot(getResources(), true, true));
                                     setMana(getMana() - 4);
                                 }
                                 break;
@@ -158,6 +159,7 @@ public class GameActivity extends AppCompatActivity {
                             default: break;
                         }
                     }
+                    typeSelected = 5;
                 }
                 return true;
             }

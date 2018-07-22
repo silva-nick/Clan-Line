@@ -38,10 +38,10 @@ class Robot extends Entity {
     private Bitmap currentBitmap = northArray[0];
 
     public Robot(Resources resources, boolean side, boolean lane){
-        super("Robot",10,10,10,1000, side, lane, resources);
+        super("Robot",2,40,36,1000, side, lane, resources);
 
         if(isSouth()){
-            setX(isLeft() ? (220) : (Resources.getSystem().getDisplayMetrics().widthPixels-340));
+            setX(isLeft() ? (180) : (Resources.getSystem().getDisplayMetrics().widthPixels-340));
         }
         else{
             setX(Resources.getSystem().getDisplayMetrics().widthPixels/2-80);
@@ -111,15 +111,15 @@ class Robot extends Entity {
 
         if(isSouth() && !isFighting()) {
             if(isDiagonal()){
-                setX(isLeft() ? (getX()-2) : (getX()+2));
+                setX(isLeft() ? (getX()+getSpeed()) : (getX()-getSpeed()));
             }
-            setY(getY() + 2);
+            setY(getY() + getSpeed());
         }
         else if(!isFighting()){
             if(isDiagonal()){
-                setX(isLeft() ? (getX()-2) : (getX()+2));
+                setX(isLeft() ? (getX()-getSpeed()) : (getX()+getSpeed()));
             }
-            setY(getY() - 2);
+            setY(getY() - getSpeed());
         }
         ArrayList<Entity> enemies = getEnemies();
         for(Entity e : enemies){
