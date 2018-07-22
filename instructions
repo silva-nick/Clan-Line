@@ -1,0 +1,27 @@
+Song: while im in away it would be cool if you could to a couple BASIC things
+1) talk to some of the interns on wednesday and see what they think of the UI and maybe get them to play
+2) get charlie george... to do a bit of play testing and make a list of feature/reworks that they suggest
+3) if you could and i know this might be hard for you, but add a new activity for when the game is over, it wont be too hard*
+4) if you really want to do some things that would help us win adding sound would be great but you would probably have to follow some
+guides online ill link some sound files below**
+
+* (i used a speech to text so it might be a little messy)
+okay song so in order to set the game up so that when it ends we can have the user restart and play game over message the first thing
+we're going to want to do set up a while or not a while loop if statement in update method of the game view class do you want to do there
+is basically just a like if Char list of one just the the the index Worthy the base is Carlos of one if that if P of that is equal to or 
+less than 0 what you want to do one is I don't I don't know how you're going to do this exactly you might want to change activities or 
+just display a message so I could text you at the middle of the screen that says and then you after that is it you want to do connects 
+thread connected thread I mean and you want to do. Right you going to send it a byte array what I recommend for the byte array you change
+the first bite to 4 and then once you're when you're go to the connected thread run with it and in the message. Send creative statement 
+that basically reads the first bite of the buffer a byte array and if that's equal to 5 then it sends message to Handler see it soon. 
+Message send message to Handler. Obtain message and change the what to 1 instead of 2 and then just leave if that's not true if the first 
+bite isn't equal to 5 and you want it to happen what equals 0 not able to find any wants people to one and then go to the game activity. 
+Java and go to the Ferguson right Atop The Handler anaverde kind of have this written in there's a big switch statement undercase one I 
+just haven't commented outbreak or haven't commented game and so what basically if everything went right what just happened is that we 
+just sent a message from the phone she's a basic Guide to the phone whose base one like still alive destroy the other base now in this 
+little section switch statement case 1 what do you want to happen all you basically write a message that says okay or that maybe sets a 
+text you or changes the activity so that it displays you win like enemy defeated I don't know whatever you want Hezekiah retry button I 
+think you should probably just do a new activity but yeah that's pretty much it once in awhile in new active basically it's super easy 
+after that then eBay you go to a new activity you just send it back to the old activity but just new reset
+
+**https://marvingames.itch.io/game-sound-fx & https://jdwasabi.itch.io/8-bit-16-bit-sound-effects-pack
