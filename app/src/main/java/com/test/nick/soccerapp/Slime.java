@@ -18,9 +18,20 @@ class Slime extends Entity {
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north4_2), 100, 100, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north4_3), 100, 100, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north4_4), 100, 100, false)};
+    private Bitmap[] deathArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.explode1_1), 100, 100, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.explode1_1), 100, 100, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.explode1_2), 100, 100, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.explode1_3), 100, 100, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.explode1_4), 100, 100, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.explode1_5), 100, 100, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.explode1_6), 100, 100, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.explode1_7), 100, 100, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.explode1_8), 100, 100, false)};
 
 
     private Bitmap currentBitmap = northArray[0];
+
+    private int startFrame = 0;
 
     public Slime(Resources resources, boolean side, boolean lane){
         super("Slime",4,10,12,400, side, lane, resources);
@@ -32,14 +43,12 @@ class Slime extends Entity {
             setX(Resources.getSystem().getDisplayMetrics().widthPixels/2-50);
         }
 
-
         if(isSouth()) {
             setY(-50);
         }
         else{
             setY(Resources.getSystem().getDisplayMetrics().heightPixels-50);
         }
-
     }
 
     @Override
@@ -47,13 +56,15 @@ class Slime extends Entity {
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);
         paint.setTextSize(20);
+
         if(isSouth()) {
             canvas.drawText(String.valueOf(getHealth()), getX()-5, getY()-5, paint);
         }
         else {
             canvas.drawText(String.valueOf(getHealth()), getX()-5, getY()+215, paint);
         }
-        if (frame % 4 == 0) {
+
+        if (frame % 4 == 0 && startFrame==0) {
             if(isSouth()) {
                 currentBitmap = southArray[(frame/4)%4];
             }
@@ -61,6 +72,21 @@ class Slime extends Entity {
                 currentBitmap = northArray[(frame/4)%4];
             }
         }
+
+        if(getHealth()<=80&&startFrame==0){
+            startFrame = frame;
+        }
+
+        if(startFrame>1){
+            if((frame-startFrame)%4==0){
+                currentBitmap = deathArray[(frame-startFrame)/4];
+                setDamage(getDamage()+10);
+            }
+            if((frame-startFrame)>=36){
+                currentBitmap = deathArray[8];
+            }
+        }
+
         canvas.drawBitmap(currentBitmap, getX(), getY(), null);
     }
 

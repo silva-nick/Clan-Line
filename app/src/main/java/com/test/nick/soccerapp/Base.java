@@ -17,9 +17,9 @@ class Base extends Entity {
     private Bitmap currentBitmap = bitmaps[0];
 
     public Base(Resources resources, boolean side, boolean lane){
-        super("Base",10,10,10,1000, side, lane, resources);
+        super("Base",10,10,10,2000, side, lane, resources);
         setX(Resources.getSystem().getDisplayMetrics().widthPixels/2-120);
-        setY(Resources.getSystem().getDisplayMetrics().heightPixels-550);
+        setY(Resources.getSystem().getDisplayMetrics().heightPixels-570);
     }
 
     @Override
