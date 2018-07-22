@@ -96,6 +96,9 @@ public abstract class Entity {
     }
 
     public boolean isCollided(Entity e){
+        if(e.getName().equals("Base")){
+            return true;
+        }
         if(isSouth() && e.isSouth() || !isSouth() && !e.isSouth()){
             return false;
         }
