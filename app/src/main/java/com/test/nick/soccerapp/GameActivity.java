@@ -104,13 +104,13 @@ public class GameActivity extends AppCompatActivity {
                         switch (typeSelected){
                             case 0:
                                 if(getMana()>=4) {
-                                    gameView.add(new Robot(getResources(), true, true));
+                                    gameView.add(new Witch(getResources(), false, true));
                                     setMana(getMana() - 4);
                                 }
                                 break;
                             case 1:
                                 if(getMana()>=4) {
-                                    gameView.add(new Robot(getResources(), false, true));
+                                    gameView.add(new Fighter(getResources(), false, true));
                                     setMana(getMana() - 4);
                                 }
                                 break;
@@ -122,7 +122,7 @@ public class GameActivity extends AppCompatActivity {
                                 break;
                             case 3:
                                 if(getMana()>=3) {
-                                    gameView.add(new Robot(getResources(), false, true));
+                                    gameView.add(new Slime(getResources(), false, true));
                                     setMana(getMana() - 3);
                                 }
                                 break;
@@ -133,14 +133,14 @@ public class GameActivity extends AppCompatActivity {
                         switch (typeSelected){
                             case 0:
                                 if(getMana()>=4) {
-                                    gameView.add(new Robot(getResources(), false, false));
+                                    gameView.add(new Witch(getResources(), false, false));
                                     gameView.add(new Robot(getResources(), true, false));
                                     setMana(getMana() - 4);
                                 }
                                 break;
                             case 1:
                                 if(getMana()>=4) {
-                                    gameView.add(new Robot(getResources(), false, false));
+                                    gameView.add(new Fighter(getResources(), false, false));
                                     setMana(getMana() - 4);
                                 }
                                 break;
@@ -152,7 +152,7 @@ public class GameActivity extends AppCompatActivity {
                                 break;
                             case 3:
                                 if(getMana()>=3) {
-                                    gameView.add(new Robot(getResources(), false, false));
+                                    gameView.add(new Slime(getResources(), false, false));
                                     setMana(getMana() - 3);
                                 }
                                 break;
