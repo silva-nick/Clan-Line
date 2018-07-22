@@ -62,7 +62,7 @@ public class GameActivity extends AppCompatActivity {
     private GameView gameView;
 
     private int typeSelected = 5;
-    private int mana = 0;
+    private int mana = 10;
 
     private ConnectedThread messageThread;
 
@@ -74,8 +74,8 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         Log.d(TAG, "Starting GameActivity");
         GlobalApplication app = (GlobalApplication)getApplication();
-        messageThread = new ConnectedThread(app.socket, mHandler);
-        messageThread.start();
+        //messageThread = new ConnectedThread(app.socket, mHandler);
+       // messageThread.start();
         gameView = findViewById(R.id.gameView);
         gameView.sendThread(messageThread);
 

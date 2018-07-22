@@ -23,14 +23,19 @@ class Robot extends Entity {
 
     public Robot(Resources resources, boolean side, boolean lane){
         super("Robot",10,10,10,1000, side, lane, resources);
+
+        if(isSouth()){
+            setX(isLeft() ? (220) : (Resources.getSystem().getDisplayMetrics().widthPixels-340));
+        }
+        else{
+            setX(Resources.getSystem().getDisplayMetrics().widthPixels/2-80);
+        }
+
+
         if(isSouth()) {
-            if(isLeft()){setX(Resources.getSystem().getDisplayMetrics().widthPixels/3-southArray[0].getWidth());}
-            else{setX(Resources.getSystem().getDisplayMetrics().widthPixels*2/3);}
             setY(-50);
         }
         else{
-            if(isLeft()){setX(Resources.getSystem().getDisplayMetrics().widthPixels/3-southArray[0].getWidth());}
-            else{setX(Resources.getSystem().getDisplayMetrics().widthPixels*2/3);}
             setY(Resources.getSystem().getDisplayMetrics().heightPixels-50);
         }
 
@@ -60,10 +65,24 @@ class Robot extends Entity {
 
     @Override
     public void update(int frame){
+        if(getY()>Resources.getSystem().getDisplayMetrics().heightPixels-820&&
+                getY()<Resources.getSystem().getDisplayMetrics().heightPixels-520){
+            setDiagonal(true);
+        }
+        else{
+            setDiagonal(false);
+        }
+
         if(isSouth() && !isFighting()) {
+            if(isDiagonal()){
+                setX(isLeft() ? (getX()-2) : (getX()+2));
+            }
             setY(getY() + 2);
         }
         else if(!isFighting()){
+            if(isDiagonal()){
+                setX(isLeft() ? (getX()-2) : (getX()+2));
+            }
             setY(getY() - 2);
         }
         ArrayList<Entity> enemies = getEnemies();

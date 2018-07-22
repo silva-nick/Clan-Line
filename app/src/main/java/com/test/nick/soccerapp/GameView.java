@@ -2,6 +2,7 @@ package com.test.nick.soccerapp;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -14,11 +15,10 @@ import java.util.ArrayList;
 class GameView extends SurfaceView implements SurfaceHolder.Callback{
     private static final String TAG = "GameView";
     private GameThread mainThread;
-    private Robot test;
-    private Robot test2;
     private int count = 0;
     private ArrayList<Entity> charList;
     private ConnectedThread messageThread;
+    private Bitmap background;
 
     public GameView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
@@ -32,6 +32,8 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback{
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
         mainThread.setRunning(true);
         mainThread.start();
+        background = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.background),
+                Resources.getSystem().getDisplayMetrics().widthPixels, Resources.getSystem().getDisplayMetrics().heightPixels-120, false);
     }
 
     @Override
@@ -109,7 +111,7 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback{
         count++;
         super.draw(canvas);
         if (canvas != null) {
-            canvas.drawColor(Color.WHITE);
+            canvas.drawBitmap(background, 0, 0, null);
             for(Entity e : charList){
                 e.draw(canvas, count);
             }

@@ -12,11 +12,11 @@ public abstract class Entity {
     private String name;
     private int speed,  damage, attackSpeed, health;
     private int x, y;
-    private boolean side, lane;
+    private boolean side, lane, diagonal;
     private ArrayList<Entity> enemies = new ArrayList<Entity>();
     static Resources resources;
 
-    public Entity(String name, int speed, int damage, int attackSpeed, int health, boolean side, boolean lane, Resources maps) {
+    public Entity(String name, int speed, int damage, int attackSpeed, int health, boolean side, boolean lane,Resources maps) {
         this.name = name;
         this.speed = speed;
         this.damage = damage;
@@ -63,6 +63,14 @@ public abstract class Entity {
         return lane;
     }
 
+    public boolean isDiagonal() {
+        return diagonal;
+    }
+
+    public void setDiagonal(boolean diagonal) {
+        this.diagonal = diagonal;
+    }
+
     public int getX() {
         return x;
     }
@@ -87,10 +95,10 @@ public abstract class Entity {
         if(isSouth() && e.isSouth() || !isSouth() && !e.isSouth()){
             return false;
         }
-        else if((isSouth() && !e.isSouth()) && (this.getY()+210 > e.getY()-20)){
+        else if((isSouth() && !e.isSouth()) && (this.getY()+210 > e.getY()+10)){
             return true;
         }
-        else if((!isSouth() && e.isSouth()) && (this.getY()-20 < e.getY()+210)){
+        else if((!isSouth() && e.isSouth()) && (this.getY()+10 < e.getY()+210)){
             return true;
         }
         return false;
