@@ -11,10 +11,10 @@ public class EndActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_end);
         TextView textView = findViewById(R.id.gameover);
-        if (getIntent().getIntExtra("winlose", 0)==1){
-            textView.setText("victory");
-        } else {
+        if (getIntent().getIntExtra("winlose", 0)==0){
             textView.setText("defeat");
+        } else {
+            textView.setText("victory");
         }
     }
 }

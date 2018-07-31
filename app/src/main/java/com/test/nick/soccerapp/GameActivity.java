@@ -55,8 +55,9 @@ public class GameActivity extends AppCompatActivity {
                 case 1:
                     Intent intent = new Intent(GameActivity.this, EndActivity.class);
                     intent.putExtra("winlose", readBuf[0]+2);
-                    messageThread.write(new byte[]{-2});
+                    if (readBuf[0]!=-2) {messageThread.write(new byte[]{-2});}
                     startActivity(intent);
+                    finish();
                     break;
             }
 
@@ -69,6 +70,16 @@ public class GameActivity extends AppCompatActivity {
     private int mana = 10;
 
     private ConnectedThread messageThread;
+
+
+    @Override
+    protected void onDestroy(){
+        Log.d(TAG, "onDestroy: destroying game activity");
+        super.onDestroy();
+        messageThread.cancel();
+        messageThread = null;
+        gameView.destroy();
+    }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override

@@ -124,6 +124,11 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback{
     public void add(Entity entity){
         charList.add(entity);
     }
+
+    public void destroy(){
+        mainThread.setRunning(false);
+
+    }
 }
 
 //sources:
