@@ -1,6 +1,7 @@
 package com.test.nick.soccerapp;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Handler;
 import android.os.Message;
@@ -30,9 +31,9 @@ public class GameActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg){
             Log.d(TAG, "incoming message");
+            byte[] readBuf  = (byte[]) msg.obj;
             switch (msg.what){
                 case 0:
-                    byte[] readBuf  = (byte[]) msg.obj;
                     switch (readBuf[0]){
                         case 0:
                             gameView.add(new Witch(getResources(), true, readBuf[1]!=1));
@@ -52,7 +53,10 @@ public class GameActivity extends AppCompatActivity {
 
                     break;
                 case 1:
-                    //gameover
+                    Intent intent = new Intent(GameActivity.this, EndActivity.class);
+                    intent.putExtra("winlose", readBuf[0]+2);
+                    messageThread.write(new byte[]{-2});
+                    startActivity(intent);
                     break;
             }
 

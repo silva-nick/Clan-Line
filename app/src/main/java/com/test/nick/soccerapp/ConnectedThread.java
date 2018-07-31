@@ -50,8 +50,14 @@ public class ConnectedThread extends Thread{
             try {
                 numBytes = inputStream.read(buffer);
                 Log.d(TAG, "message received");
-                messageSendHandler.obtainMessage(0, numBytes, -1, buffer)
-                        .sendToTarget();
+                if(buffer[0]<0){
+                    messageSendHandler.obtainMessage(1, numBytes, -1, buffer)
+                            .sendToTarget();
+                } else {
+                    messageSendHandler.obtainMessage(0, numBytes, -1, buffer)
+                            .sendToTarget();
+                }
+
             } catch (IOException e) {
                 Log.e(TAG, "run: input read error ", e);
                 break;

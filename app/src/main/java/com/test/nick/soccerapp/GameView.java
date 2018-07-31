@@ -1,6 +1,7 @@
 package com.test.nick.soccerapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -58,6 +59,10 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback{
     }
 
     public void update(){
+        if(charList.get(0).getHealth()<=0){
+            messageThread.write(new byte[]{-1});
+        }
+
         for(Entity e : charList){
 
             for(Entity e2 : charList){
