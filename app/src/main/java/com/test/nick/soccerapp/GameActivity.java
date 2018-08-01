@@ -236,8 +236,8 @@ public class GameActivity extends AppCompatActivity {
 
     public void setMana(int x){
         mana = x;
-        ImageView manaView = (ImageView)findViewById(R.id.mana_bar);
-        TextView manaText = (TextView)findViewById(R.id.mana_text);
+        ImageView manaView = findViewById(R.id.mana_bar);
+        TextView manaText = findViewById(R.id.mana_text);
 
         manaText.setText(getMana()+"");
         switch (mana){

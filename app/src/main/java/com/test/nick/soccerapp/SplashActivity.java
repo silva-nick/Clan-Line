@@ -28,7 +28,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         //Calls imageView avd animation
-        ImageView avdView = (ImageView)findViewById(R.id.imageView);
+        ImageView avdView = findViewById(R.id.imageView);
         Drawable d = avdView.getDrawable();
         avd = (AnimatedVectorDrawableCompat)d;
         avd.start();

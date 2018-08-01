@@ -51,7 +51,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if (action.equals(mBluetoothAdapter.ACTION_STATE_CHANGED)) {
+            if (action.equals(BluetoothAdapter.ACTION_STATE_CHANGED)) {
                 final int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR);
 
                 switch (state){
@@ -141,8 +141,8 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
             public View getView(int i, View view, ViewGroup viewGroup) {
                 view = getLayoutInflater().inflate(R.layout.btdevicelayout, null);
 
-                ImageView imageView = (ImageView)view.findViewById(R.id.imageView);
-                TextView textViewName = (TextView)view.findViewById(R.id.textView_name);
+                ImageView imageView = view.findViewById(R.id.imageView);
+                TextView textViewName = view.findViewById(R.id.textView_name);
 
                 if(newDeviceList.get(i).getName()!=null)textViewName.setText(newDeviceList.get(i).getName());
                 else{textViewName.setText(newDeviceList.get(i).getAddress());}
@@ -202,7 +202,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         //turns on discoverability on startup
         enableDisableConnect();
 
-        listView = (ListView) findViewById(R.id.listView);
+        listView = findViewById(R.id.listView);
         listView.setOnItemClickListener(HomeActivity.this);
 
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
@@ -271,7 +271,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
         mBluetoothAdapter.cancelDiscovery();
         Log.d(TAG, "onItemClick: device chosen");
         Log.d(TAG, "onItemClick: trying to pair with " + newDeviceList.get(i).getName());
-        ImageView avdView = (ImageView)view.findViewById(R.id.imageView);
+        ImageView avdView = view.findViewById(R.id.imageView);
         Drawable d = avdView.getDrawable();
         AnimatedVectorDrawableCompat avd = (AnimatedVectorDrawableCompat)d;
         avd.start();

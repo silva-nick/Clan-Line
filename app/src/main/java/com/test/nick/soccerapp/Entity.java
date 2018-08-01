@@ -102,10 +102,7 @@ public abstract class Entity {
         else if((isSouth() && !e.isSouth()) && (this.getY()+210 > e.getY()+10)){
             return true;
         }
-        else if((!isSouth() && e.isSouth()) && (this.getY()+10 < e.getY()+210)){
-            return true;
-        }
-        return false;
+        else return (!isSouth() && e.isSouth()) && (this.getY() + 10 < e.getY() + 210);
     }
 
     public void setFighting(Entity e){
