@@ -38,7 +38,7 @@ class Witch extends Entity {
     private Bitmap currentBitmap = northArray[0];
 
     public Witch(Resources resources, boolean side, boolean lane){
-        super("Witch",2,50,24,500, side, lane, resources);
+        super("Witch",3,50,20,600, side, lane, resources);
 
         if(isSouth()){
             setX(isLeft() ? (180) : (Resources.getSystem().getDisplayMetrics().widthPixels-340));
@@ -52,7 +52,7 @@ class Witch extends Entity {
             setY(-50);
         }
         else{
-            setY(Resources.getSystem().getDisplayMetrics().heightPixels-50);
+            setY(Resources.getSystem().getDisplayMetrics().heightPixels-120);
         }
 
     }

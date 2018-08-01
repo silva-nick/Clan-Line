@@ -34,7 +34,7 @@ class Slime extends Entity {
     private int startFrame = 0;
 
     public Slime(Resources resources, boolean side, boolean lane){
-        super("Slime",4,10,12,400, side, lane, resources);
+        super("Slime",5,10,12,400, side, lane, resources);
 
         if(isSouth()){
             setX(isLeft() ? (180) : (Resources.getSystem().getDisplayMetrics().widthPixels-340));
@@ -47,7 +47,7 @@ class Slime extends Entity {
             setY(-50);
         }
         else{
-            setY(Resources.getSystem().getDisplayMetrics().heightPixels-50);
+            setY(Resources.getSystem().getDisplayMetrics().heightPixels-120);
         }
     }
 

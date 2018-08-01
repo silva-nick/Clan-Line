@@ -67,7 +67,7 @@ public class GameActivity extends AppCompatActivity {
     private GameView gameView;
 
     private int typeSelected = 5;
-    private int mana = 10;
+    private int mana = 6;
 
     private ConnectedThread messageThread;
 
@@ -108,7 +108,7 @@ public class GameActivity extends AppCompatActivity {
                     }
                 });
             }
-        }, 2500, 2500);
+        }, 2000, 2000);
 
         gameView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -149,7 +149,6 @@ public class GameActivity extends AppCompatActivity {
                             case 0:
                                 if(getMana()>=4) {
                                     gameView.add(new Witch(getResources(), false, false));
-                                    gameView.add(new Robot(getResources(), true, false));
                                     setMana(getMana() - 4);
                                 }
                                 break;
