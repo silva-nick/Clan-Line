@@ -1,25 +1,23 @@
 package com.test.nick.soccerapp;
 
 import android.content.Intent;
+import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
-import android.support.animation.DynamicAnimation;
-import android.support.animation.SpringAnimation;
-import android.support.animation.SpringForce;
-import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.dynamicanimation.animation.DynamicAnimation;
+import androidx.dynamicanimation.animation.SpringAnimation;
+import androidx.dynamicanimation.animation.SpringForce;
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 
 public class SplashActivity extends AppCompatActivity {
     private static final String TAG = "SplashActivity";
     private static final int BOUNCE_HEIGHT = -500;
-    private AnimatedVectorDrawableCompat avd;
+    private Animatable avd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +28,8 @@ public class SplashActivity extends AppCompatActivity {
         //Calls imageView avd animation
         ImageView avdView = findViewById(R.id.imageView);
         Drawable d = avdView.getDrawable();
-        avd = (AnimatedVectorDrawableCompat)d;
+
+        avd = (Animatable)d;
         avd.start();
 
         new Thread() {

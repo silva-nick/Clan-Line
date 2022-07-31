@@ -9,7 +9,7 @@ import android.graphics.Paint;
 
 import java.util.ArrayList;
 
-class Slime extends Entity {
+class Goblin extends Entity {
     private Bitmap[] southArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south4_1), 100, 100, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south4_2), 100, 100, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south4_3), 100, 100, false),
@@ -33,7 +33,7 @@ class Slime extends Entity {
 
     private int startFrame = 0;
 
-    public Slime(Resources resources, boolean side, boolean lane){
+    public Goblin(Resources resources, boolean side, boolean lane){
         super("Slime",6,10,12,400, side, lane, resources);
 
         if(isSouth()){

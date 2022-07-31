@@ -38,7 +38,7 @@ class Robot extends Entity {
     private Bitmap currentBitmap = northArray[0];
 
     public Robot(Resources resources, boolean side, boolean lane){
-        super("Robot",2,40,36,2000, side, lane, resources);
+        super("Robot",2,50,36,2000, side, lane, resources);
 
         if(isSouth()){
             setX(isLeft() ? (180) : (Resources.getSystem().getDisplayMetrics().widthPixels-340));
