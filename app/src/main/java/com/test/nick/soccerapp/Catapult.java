@@ -9,27 +9,32 @@ import android.graphics.Paint;
 
 import java.util.ArrayList;
 
-class Goblin extends Entity {
-    private Bitmap[] southArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south5_1), 90, 120, false),
-            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south5_2), 90, 120, false),
-            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south5_3), 90, 120, false),
-            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south5_4), 90, 120, false)};
-    private Bitmap[] northArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north5_1), 90, 120, false),
-            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north5_2), 90, 120, false),
-            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north5_3), 90, 120, false),
-            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north5_4), 90, 120, false)};
+class Catapult extends Entity {
+    private final GameView game;
+
+    private Bitmap[] northArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south7_1), 100, 140, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south7_2), 100, 140, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south7_3), 100, 140, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south7_4), 100, 140, false)};
+    private Bitmap[] southArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north7_1), 100, 140, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north7_2), 100, 140, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north7_3), 100, 140, false),
+            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north7_4), 100, 140, false)};
 
     private Bitmap currentBitmap = northArray[0];
 
-    public Goblin(Resources resources, boolean side, boolean lane){
-        super("Goblin",8,12,8,600, 20, false, side, lane, resources);
+    public Catapult(Resources resources, boolean side, boolean lane, GameView game){
+        super("Catapult",1,10,10,1000, 200, true, side, lane, resources);
+
+        this.game = game;
 
         if(isSouth()){
             setX(isLeft() ? (180) : (Resources.getSystem().getDisplayMetrics().widthPixels-340));
         }
         else{
-            setX(Resources.getSystem().getDisplayMetrics().widthPixels/2-80);
+            setX(Resources.getSystem().getDisplayMetrics().widthPixels/2-50);
         }
+
 
         if(isSouth()) {
             setY(-50);
@@ -64,13 +69,8 @@ class Goblin extends Entity {
 
     @Override
     public void update(int frame){
-        if(getY()>Resources.getSystem().getDisplayMetrics().heightPixels-820&&
-                getY()<Resources.getSystem().getDisplayMetrics().heightPixels-520){
-            setDiagonal(true);
-        }
-        else{
-            setDiagonal(false);
-        }
+        setDiagonal(getY() > Resources.getSystem().getDisplayMetrics().heightPixels - 750 &&
+                getY() < Resources.getSystem().getDisplayMetrics().heightPixels - 460);
 
         if(isSouth() && !isFighting()) {
             if(isDiagonal()){
@@ -84,10 +84,11 @@ class Goblin extends Entity {
             }
             setY(getY() - getSpeed());
         }
+
         ArrayList<Entity> enemies = getEnemies();
-        for(Entity e : enemies){
-            fighting(e, frame);
-            if (!getSplashDamage()) break;
+        for (Entity enemy: enemies) {
+            game.add(new Rock(resources, enemy.getSide(), enemy.getLane()));
+            break;
         }
     }
 }

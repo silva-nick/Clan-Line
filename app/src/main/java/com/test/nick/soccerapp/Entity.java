@@ -10,22 +10,28 @@ import java.util.ArrayList;
 public abstract class Entity {
     private static final String TAG = "Entity";
     private String name;
-    private int speed,  damage, attackSpeed, health;
+    private int speed,  damage, attackSpeed, health, range;
     private int x, y;
-    private boolean side, lane, diagonal;
+    private boolean side, lane, splashDamage, diagonal;
     private ArrayList<Entity> enemies = new ArrayList<Entity>();
     static Resources resources;
 
-    public Entity(String name, int speed, int damage, int attackSpeed, int health, boolean side, boolean lane, Resources maps) {
+    public Entity(String name, int speed, int damage, int attackSpeed, int health, int range, boolean splashDamage, boolean side, boolean lane, Resources maps) {
         this.name = name;
         this.speed = speed;
         this.damage = damage;
         this.attackSpeed = attackSpeed;
         this.health = health;
+        this.range = range;
+        this.splashDamage = splashDamage;
         this.side = side;
         this.lane = lane;
         resources = maps;
     }
+
+    public boolean getSide() {return side;}
+
+    public boolean getLane() {return lane;}
 
     public String getName() {
         return name;
@@ -58,6 +64,10 @@ public abstract class Entity {
     public void setHealth(int health) {
         this.health = health;
     }
+
+    public int getRange() { return this.range; }
+
+    public boolean getSplashDamage() { return this.splashDamage; }
 
     public boolean isSouth() {
         return side;
@@ -99,10 +109,10 @@ public abstract class Entity {
         if(isSouth() && e.isSouth() || !isSouth() && !e.isSouth()){
             return false;
         }
-        else if((isSouth() && !e.isSouth()) && (this.getY()+210 > e.getY()+10)){
+        else if((isSouth() && !e.isSouth()) && (this.getY()+200+range > e.getY())){
             return true;
         }
-        else return (!isSouth() && e.isSouth()) && (this.getY() + 10 < e.getY() + 210);
+        else return (!isSouth() && e.isSouth()) && (this.getY() < e.getY()+200+range);
     }
 
     public void setFighting(Entity e){

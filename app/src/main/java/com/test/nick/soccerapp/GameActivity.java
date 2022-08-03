@@ -14,6 +14,8 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -24,7 +26,13 @@ public class GameActivity extends AppCompatActivity {
     public static final int HERO_TWO = 1;
     public static final int HERO_THREE = 2;
     public static final int HERO_FOUR = 3;
+    public static final int HERO_FIVE = 4;
+    public static final int HERO_SIX = 5;
+    public static final int HERO_SEVEN = 6;
+    public static final int HERO_EIGHT = 7;
 
+    public static final int NUM_HEROS = 7;
+    public static final int MAX_HEROS = 4;
 
     @SuppressLint("HandlerLeak")
     private final Handler mHandler= new Handler(){
@@ -35,17 +43,29 @@ public class GameActivity extends AppCompatActivity {
             switch (msg.what){
                 case 0:
                     switch (readBuf[0]){
-                        case 0:
+                        case HERO_ONE:
                             gameView.add(new Witch(getResources(), true, readBuf[1]!=1));
                             break;
-                        case 1:
+                        case HERO_TWO:
                             gameView.add(new Fighter(getResources(), true, readBuf[1]!=1));
                             break;
-                        case 2:
+                        case HERO_THREE:
                             gameView.add(new Robot(getResources(), true, readBuf[1]!=1));
                             break;
-                        case 3:
+                        case HERO_FOUR:
                             gameView.add(new Slime(getResources(), true, readBuf[1]!=1));
+                            break;
+                        case HERO_FIVE:
+                            gameView.add(new Goblin(getResources(), true, readBuf[1]!=1));
+                            break;
+                        case HERO_SIX:
+                            gameView.add(new Fireball(getResources(), true, readBuf[1]!=1));
+                            break;
+                        case HERO_SEVEN:
+                            gameView.add(new Catapult(getResources(), true, readBuf[1]!=1, gameView));
+                            break;
+                        case HERO_EIGHT:
+                            gameView.add(new Rock(getResources(), true, readBuf[1]!=1));
                             break;
                         default:
                             break;
@@ -60,17 +80,22 @@ public class GameActivity extends AppCompatActivity {
                     finish();
                     break;
             }
-
-
         }
     };
     private GameView gameView;
 
-    private int typeSelected = 5;
+    private int typeSelected = 50;
     private int mana = 6;
 
-    private ConnectedThread messageThread;
+    private final int[] defaultTiles = {R.drawable.chartile_1, R.drawable.chartile_2, R.drawable.chartile_3,
+            R.drawable.chartile_4, R.drawable.chartile_5, R.drawable.chartile_6, R.drawable.chartile_7};
+    private final int[] selectedTiles = {R.drawable.chartile_selected_1, R.drawable.chartile_selected_2,
+            R.drawable.chartile_selected_3, R.drawable.chartile_selected_4, R.drawable.chartile_selected_5,
+            R.drawable.chartile_selected_6, R.drawable.chartile_selected_7};
+    private int[] currentChars = new int[MAX_HEROS];
 
+    private ConnectedThread messageThread;
+    private final Random rng = new Random();
 
     @Override
     protected void onDestroy(){
@@ -88,12 +113,18 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         Log.d(TAG, "Starting GameActivity");
+
         GlobalApplication app = (GlobalApplication)getApplication();
         messageThread = new ConnectedThread(app.socket, mHandler);
         messageThread.start();
         gameView = findViewById(R.id.gameView);
         gameView.sendThread(messageThread);
         gameView.add(new Base(getResources(), false, true));
+
+        for (int i = 0; i < MAX_HEROS; i++) {
+            currentChars[i] = rng.nextInt(NUM_HEROS);
+        }
+        clearTiles();
 
         Timer manaTimer = new Timer();
         manaTimer.scheduleAtFixedRate(new TimerTask() {
@@ -108,37 +139,62 @@ public class GameActivity extends AppCompatActivity {
                     }
                 });
             }
-        }, 2000, 2000);
+        }, 1500, 1500);
 
         gameView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN){
+                    int selectedTile = getSelectedTile();
+                    if (selectedTile < 4) {
+                        currentChars[selectedTile] = rng.nextInt(NUM_HEROS);
+                    }
+
                     resetTiles();
+                    clearTiles();
+
                     if(event.getX()< Resources.getSystem().getDisplayMetrics().widthPixels/2){
                         switch (typeSelected){
-                            case 0:
+                            case HERO_ONE:
                                 if(getMana()>=4) {
                                     gameView.add(new Witch(getResources(), false, true));
                                     setMana(getMana() - 4);
                                 }
                                 break;
-                            case 1:
+                            case HERO_TWO:
                                 if(getMana()>=4) {
                                     gameView.add(new Fighter(getResources(), false, true));
                                     setMana(getMana() - 4);
                                 }
                                 break;
-                            case 2:
+                            case HERO_THREE:
                                 if(getMana()>=6) {
                                     gameView.add(new Robot(getResources(), false, true));
                                     setMana(getMana() - 6);
                                 }
                                 break;
-                            case 3:
+                            case HERO_FOUR:
                                 if(getMana()>=3) {
                                     gameView.add(new Slime(getResources(), false, true));
                                     setMana(getMana() - 3);
+                                }
+                                break;
+                            case HERO_FIVE:
+                                if(getMana()>=3) {
+                                    gameView.add(new Goblin(getResources(), false, true));
+                                    setMana(getMana() - 3);
+                                }
+                                break;
+                            case HERO_SIX:
+                                if(getMana()>=3) {
+                                    gameView.add(new Fireball(getResources(), false, true));
+                                    setMana(getMana() - 3);
+                                }
+                                break;
+                            case HERO_SEVEN:
+                                if(getMana()>=6) {
+                                    gameView.add(new Catapult(getResources(), false, true, gameView));
+                                    setMana(getMana() - 6);
                                 }
                                 break;
                             default: break;
@@ -146,34 +202,52 @@ public class GameActivity extends AppCompatActivity {
                     }
                     else{
                         switch (typeSelected){
-                            case 0:
+                            case HERO_ONE:
                                 if(getMana()>=4) {
                                     gameView.add(new Witch(getResources(), false, false));
                                     setMana(getMana() - 4);
                                 }
                                 break;
-                            case 1:
+                            case HERO_TWO:
                                 if(getMana()>=4) {
                                     gameView.add(new Fighter(getResources(), false, false));
                                     setMana(getMana() - 4);
                                 }
                                 break;
-                            case 2:
+                            case HERO_THREE:
                                 if(getMana()>=6) {
                                     gameView.add(new Robot(getResources(), false, false));
                                     setMana(getMana() - 6);
                                 }
                                 break;
-                            case 3:
+                            case HERO_FOUR:
                                 if(getMana()>=3) {
                                     gameView.add(new Slime(getResources(), false, false));
                                     setMana(getMana() - 3);
                                 }
                                 break;
+                            case HERO_FIVE:
+                                if(getMana()>=3) {
+                                    gameView.add(new Goblin(getResources(), false, false));
+                                    setMana(getMana() - 3);
+                                }
+                                break;
+                            case HERO_SIX:
+                                if(getMana()>=3) {
+                                    gameView.add(new Fireball(getResources(), false, false));
+                                    setMana(getMana() - 3);
+                                }
+                                break;
+                            case HERO_SEVEN:
+                                if(getMana()>=6) {
+                                    gameView.add(new Catapult(getResources(), false, true, gameView));
+                                    setMana(getMana() - 6);
+                                }
+                                break;
                             default: break;
                         }
                     }
-                    typeSelected = 5;
+                    typeSelected = 50;
                 }
                 return true;
             }
@@ -182,27 +256,28 @@ public class GameActivity extends AppCompatActivity {
 
     public void charSelected(View view) {
         resetTiles();
+        clearTiles();
         view.setSelected(true);
         switch (view.getId()){
             case R.id.tile1:
                 Log.d(TAG, "charSelected: Tile1");
-                ((ImageView)view).setImageResource(R.drawable.chartile_selected_1);
-                typeSelected = 0;
+                typeSelected = currentChars[0];
+                ((ImageView)view).setImageResource(selectedTiles[typeSelected]);
                 break;
             case R.id.tile2:
                 Log.d(TAG, "charSelected: Tile2");
-                ((ImageView)view).setImageResource(R.drawable.chartile_selected_2);
-                typeSelected = 1;
+                typeSelected = currentChars[1];
+                ((ImageView)view).setImageResource(selectedTiles[typeSelected]);
                 break;
             case R.id.tile3:
                 Log.d(TAG, "charSelected: Tile3");
-                ((ImageView)view).setImageResource(R.drawable.chartile_selected_3);
-                typeSelected = 2;
+                typeSelected = currentChars[2];
+                ((ImageView)view).setImageResource(selectedTiles[typeSelected]);
                 break;
             case R.id.tile4:
                 Log.d(TAG, "charSelected: Tile4");
-                ((ImageView)view).setImageResource(R.drawable.chartile_selected_4);
-                typeSelected = 3;
+                typeSelected = currentChars[3];
+                ((ImageView)view).setImageResource(selectedTiles[typeSelected]);
                 break;
         }
     }
@@ -211,23 +286,60 @@ public class GameActivity extends AppCompatActivity {
         View resetView = findViewById(R.id.tile1);
         if(resetView.isSelected()){
             resetView.setSelected(false);
-            ((ImageView)resetView).setImageResource(R.drawable.chartile_1);
         }
+
         resetView = findViewById(R.id.tile2);
         if(resetView.isSelected()){
             resetView.setSelected(false);
-            ((ImageView)resetView).setImageResource(R.drawable.chartile_2);
         }
+
         resetView = findViewById(R.id.tile3);
         if(resetView.isSelected()){
             resetView.setSelected(false);
-            ((ImageView)resetView).setImageResource(R.drawable.chartile_3);
         }
+
         resetView = findViewById(R.id.tile4);
         if(resetView.isSelected()){
             resetView.setSelected(false);
-            ((ImageView)resetView).setImageResource(R.drawable.chartile_4);
         }
+    }
+
+    private void clearTiles() {
+        View resetView = findViewById(R.id.tile1);
+        ((ImageView)resetView).setImageResource(defaultTiles[currentChars[0]]);
+
+        resetView = findViewById(R.id.tile2);
+        ((ImageView)resetView).setImageResource(defaultTiles[currentChars[1]]);
+
+        resetView = findViewById(R.id.tile3);
+        ((ImageView)resetView).setImageResource(defaultTiles[currentChars[2]]);
+
+        resetView = findViewById(R.id.tile4);
+        ((ImageView)resetView).setImageResource(defaultTiles[currentChars[3]]);
+    }
+
+    private int getSelectedTile() {
+        View resetView = findViewById(R.id.tile1);
+        if(resetView.isSelected()){
+            return 0;
+        }
+
+        resetView = findViewById(R.id.tile2);
+        if(resetView.isSelected()){
+            return 1;
+        }
+
+        resetView = findViewById(R.id.tile3);
+        if(resetView.isSelected()){
+            return 2;
+        }
+
+        resetView = findViewById(R.id.tile4);
+        if(resetView.isSelected()){
+            return 3;
+        }
+
+        return 4;
     }
 
     public int getMana(){

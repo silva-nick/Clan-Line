@@ -34,7 +34,7 @@ class Slime extends Entity {
     private int startFrame = 0;
 
     public Slime(Resources resources, boolean side, boolean lane){
-        super("Slime",6,10,12,400, side, lane, resources);
+        super("Slime",6,10,12,400, 20, true, side, lane, resources);
 
         if(isSouth()){
             setX(isLeft() ? (180) : (Resources.getSystem().getDisplayMetrics().widthPixels-340));
@@ -115,6 +115,7 @@ class Slime extends Entity {
         ArrayList<Entity> enemies = getEnemies();
         for(Entity e : enemies){
             fighting(e, frame);
+            if (getSplashDamage()) break;
         }
     }
 }

@@ -98,6 +98,18 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback{
                     case "Slime":
                         messageArray[0] = 3;
                         break;
+                    case "Goblin":
+                        messageArray[0] = 4;
+                        break;
+                    case "Fireball":
+                        messageArray[0] = 5;
+                        break;
+                    case "Catapult":
+                        messageArray[0] = 6;
+                        break;
+                    case "Rock":
+                        messageArray[0] = 7;
+                        break;
                         default: break;
                 }
                 messageArray[1] = (byte) (e.isLeft() ? 1 : 0);
