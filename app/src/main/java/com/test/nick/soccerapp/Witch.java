@@ -38,7 +38,7 @@ class Witch extends Entity {
     private Bitmap currentBitmap = northArray[0];
 
     public Witch(Resources resources, boolean side, boolean lane){
-        super("Witch",3,50,20,600, 100, true, side, lane, resources);
+        super("Witch",3,40,20,600, 100, true, side, lane, resources);
 
         if(isSouth()){
             setX(isLeft() ? (180) : (Resources.getSystem().getDisplayMetrics().widthPixels-340));
@@ -125,7 +125,7 @@ class Witch extends Entity {
         ArrayList<Entity> enemies = getEnemies();
         for(Entity e : enemies){
             fighting(e, frame);
-            if (getSplashDamage()) break;
+            if (!getSplashDamage()) break;
         }
     }
 }

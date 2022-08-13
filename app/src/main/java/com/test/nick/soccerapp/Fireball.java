@@ -24,7 +24,7 @@ class Fireball extends Entity {
     private int startFrame = 0;
 
     public Fireball(Resources resources, boolean side, boolean lane){
-        super("Fireball",16,500,12,1, 15, true, side, lane, resources);
+        super("Fireball",14,500,14,100, 15, true, side, lane, resources);
 
         if(isSouth()){
             setX(isLeft() ? (180) : (Resources.getSystem().getDisplayMetrics().widthPixels-340));
@@ -47,20 +47,24 @@ class Fireball extends Entity {
         paint.setColor(Color.BLACK);
         paint.setTextSize(20);
 
-        if (frame % 4 == 0 && startFrame==0) {
-            if(isSouth()) {
-                currentBitmap = southSprite;
-            } else {
-                currentBitmap = northSprite;
-            }
-        }
-
         if(!getEnemies().isEmpty() && startFrame==0){
             startFrame = frame;
         }
 
-        if(startFrame>1){
-            currentBitmap = deathArray[Math.floorDiv(frame - startFrame, 10)];
+        if (startFrame==0) {
+            currentBitmap = isSouth() ? southSprite : northSprite;
+        } else {
+            int nextBitmapIdx = Math.floorDiv(frame - startFrame, 10);
+            if (nextBitmapIdx <= 3) {
+                currentBitmap = deathArray[nextBitmapIdx];
+            } else {
+                if (startFrame % 10 < 3) {
+                    currentBitmap = isSouth() ? southSprite : northSprite;
+                    startFrame = 0;
+                } else {
+                    setHealth(-1);
+                }
+            }
         }
 
         canvas.drawBitmap(currentBitmap, getX(), getY(), null);
@@ -87,7 +91,7 @@ class Fireball extends Entity {
         ArrayList<Entity> enemies = getEnemies();
         for(Entity e : enemies){
             fighting(e, frame);
-            if (getSplashDamage()) break;
+            if (!getSplashDamage()) break;
         }
     }
 }

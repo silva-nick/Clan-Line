@@ -38,7 +38,7 @@ class Fighter extends Entity {
     private Bitmap currentBitmap = northArray[0];
 
     public Fighter(Resources resources, boolean side, boolean lane){
-        super("Fighter",3,20,14,750, 25, false, side, lane, resources);
+        super("Fighter",3,40,12,750, 25, false, side, lane, resources);
 
         if(isSouth()){
             setX(isLeft() ? (180) : (Resources.getSystem().getDisplayMetrics().widthPixels-340));

@@ -10,15 +10,15 @@ import android.graphics.Paint;
 import java.util.ArrayList;
 
 class Robot extends Entity {
-    private Bitmap[] southArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south3_1), 160, 210, false),
+    private final Bitmap[] southArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south3_1), 160, 210, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south3_2), 160, 210, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south3_3), 160, 210, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south3_4), 160, 210, false)};
-    private Bitmap[] northArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north3_1), 160, 210, false),
+    private final Bitmap[] northArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north3_1), 160, 210, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north3_2), 160, 210, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north3_3), 160, 210, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north3_4), 160, 210, false)};
-    private Bitmap[] diagArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diag3_1), 160, 210, false),
+    private final Bitmap[] diagArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diag3_1), 160, 210, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diag3_2), 160, 210, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diag3_3), 160, 210, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diag3_4), 160, 210, false),
@@ -26,7 +26,7 @@ class Robot extends Entity {
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagr3_2), 160, 210, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagr3_3), 160, 210, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagr3_4), 160, 210, false)};
-    private Bitmap[] diagupArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagup3_1), 160, 210, false),
+    private final Bitmap[] diagupArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagup3_1), 160, 210, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagup3_2), 160, 210, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagup3_3), 160, 210, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagup3_4), 160, 210, false),
@@ -38,7 +38,7 @@ class Robot extends Entity {
     private Bitmap currentBitmap = northArray[0];
 
     public Robot(Resources resources, boolean side, boolean lane){
-        super("Robot",2,50,36,2000, 25, true, side, lane, resources);
+        super("Robot",2,60,36,2000, 25, true, side, lane, resources);
 
         if(isSouth()){
             setX(isLeft() ? (180) : (Resources.getSystem().getDisplayMetrics().widthPixels-340));
@@ -101,13 +101,8 @@ class Robot extends Entity {
 
     @Override
     public void update(int frame){
-        if(getY()>Resources.getSystem().getDisplayMetrics().heightPixels-820&&
-                getY()<Resources.getSystem().getDisplayMetrics().heightPixels-520){
-            setDiagonal(true);
-        }
-        else{
-            setDiagonal(false);
-        }
+        setDiagonal(getY() > Resources.getSystem().getDisplayMetrics().heightPixels - 820 &&
+                getY() < Resources.getSystem().getDisplayMetrics().heightPixels - 520);
 
         if(isSouth() && !isFighting()) {
             if(isDiagonal()){

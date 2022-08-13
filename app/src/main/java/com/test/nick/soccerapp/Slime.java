@@ -34,7 +34,7 @@ class Slime extends Entity {
     private int startFrame = 0;
 
     public Slime(Resources resources, boolean side, boolean lane){
-        super("Slime",6,10,12,400, 20, true, side, lane, resources);
+        super("Slime",6,20,12,400, 20, true, side, lane, resources);
 
         if(isSouth()){
             setX(isLeft() ? (180) : (Resources.getSystem().getDisplayMetrics().widthPixels-340));
@@ -73,14 +73,14 @@ class Slime extends Entity {
             }
         }
 
-        if(getHealth()<=80&&startFrame==0){
+        if(getHealth()<=80 && startFrame==0){
             startFrame = frame;
         }
 
         if(startFrame>1){
             if((frame-startFrame)%4==0){
                 currentBitmap = deathArray[(frame-startFrame)/4];
-                setDamage(getDamage()+10);
+                setDamage(getDamage()+12);
             }
             if((frame-startFrame)>=36){
                 currentBitmap = deathArray[8];
@@ -115,7 +115,7 @@ class Slime extends Entity {
         ArrayList<Entity> enemies = getEnemies();
         for(Entity e : enemies){
             fighting(e, frame);
-            if (getSplashDamage()) break;
+            if (!getSplashDamage()) break;
         }
     }
 }

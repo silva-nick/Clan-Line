@@ -87,8 +87,15 @@ class Catapult extends Entity {
 
         ArrayList<Entity> enemies = getEnemies();
         for (Entity enemy: enemies) {
-            game.add(new Rock(resources, enemy.getSide(), enemy.getLane()));
+            fighting(enemy, frame);
             break;
+        }
+    }
+
+    @Override
+    public void fighting(Entity enemy, int frame){
+        if(frame%enemy.getAttackSpeed()==0){
+            game.add(new Rock(resources, enemy.getSide(), enemy.getLane()));
         }
     }
 }

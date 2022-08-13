@@ -42,35 +42,38 @@ public class GameActivity extends AppCompatActivity {
             byte[] readBuf  = (byte[]) msg.obj;
             switch (msg.what){
                 case 0:
+                    Entity entity;
                     switch (readBuf[0]){
                         case HERO_ONE:
-                            gameView.add(new Witch(getResources(), true, readBuf[1]!=1));
+                            entity = new Witch(getResources(), true, readBuf[1]!=1);
                             break;
                         case HERO_TWO:
-                            gameView.add(new Fighter(getResources(), true, readBuf[1]!=1));
+                            entity = new Fighter(getResources(), true, readBuf[1]!=1);
                             break;
                         case HERO_THREE:
-                            gameView.add(new Robot(getResources(), true, readBuf[1]!=1));
+                            entity = new Robot(getResources(), true, readBuf[1]!=1);
                             break;
                         case HERO_FOUR:
-                            gameView.add(new Slime(getResources(), true, readBuf[1]!=1));
+                            entity = new Slime(getResources(), true, readBuf[1]!=1);
                             break;
                         case HERO_FIVE:
-                            gameView.add(new Goblin(getResources(), true, readBuf[1]!=1));
+                            entity = new Goblin(getResources(), true, readBuf[1]!=1);
                             break;
                         case HERO_SIX:
-                            gameView.add(new Fireball(getResources(), true, readBuf[1]!=1));
+                            entity = new Fireball(getResources(), true, readBuf[1]!=1);
                             break;
                         case HERO_SEVEN:
-                            gameView.add(new Catapult(getResources(), true, readBuf[1]!=1, gameView));
+                            entity = new Catapult(getResources(), true, readBuf[1]!=1, gameView);
                             break;
                         case HERO_EIGHT:
-                            gameView.add(new Rock(getResources(), true, readBuf[1]!=1));
+                            entity = new Rock(getResources(), true, readBuf[1]!=1);
                             break;
                         default:
+                            entity = new Rock(getResources(), true, readBuf[1]!=1);
                             break;
                     }
-
+                    entity.setHealth(readBuf[2]);
+                    gameView.add(entity);
                     break;
                 case 1:
                     Intent intent = new Intent(GameActivity.this, EndActivity.class);
