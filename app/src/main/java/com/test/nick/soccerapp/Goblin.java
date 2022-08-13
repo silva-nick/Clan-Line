@@ -10,11 +10,11 @@ import android.graphics.Paint;
 import java.util.ArrayList;
 
 class Goblin extends Entity {
-    private Bitmap[] southArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south5_1), 90, 120, false),
+    private final Bitmap[] southArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south5_1), 90, 120, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south5_2), 90, 120, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south5_3), 90, 120, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south5_4), 90, 120, false)};
-    private Bitmap[] northArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north5_1), 90, 120, false),
+    private final Bitmap[] northArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north5_1), 90, 120, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north5_2), 90, 120, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north5_3), 90, 120, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north5_4), 90, 120, false)};
@@ -64,13 +64,8 @@ class Goblin extends Entity {
 
     @Override
     public void update(int frame){
-        if(getY()>Resources.getSystem().getDisplayMetrics().heightPixels-820&&
-                getY()<Resources.getSystem().getDisplayMetrics().heightPixels-520){
-            setDiagonal(true);
-        }
-        else{
-            setDiagonal(false);
-        }
+        setDiagonal(getY() > Resources.getSystem().getDisplayMetrics().heightPixels - 820 &&
+                getY() < Resources.getSystem().getDisplayMetrics().heightPixels - 520);
 
         if(isSouth() && !isFighting()) {
             if(isDiagonal()){
@@ -86,7 +81,7 @@ class Goblin extends Entity {
         }
         ArrayList<Entity> enemies = getEnemies();
         for(Entity e : enemies){
-            fighting(e, frame);
+            attack(e, frame);
             if (!getSplashDamage()) break;
         }
     }

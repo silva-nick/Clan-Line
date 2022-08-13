@@ -13,7 +13,7 @@ public class ConnectedThread extends Thread{
     private final InputStream inputStream;
     private final OutputStream outputStream;
 
-    private Handler messageSendHandler;
+    private final Handler messageSendHandler;
 
     private static final String TAG = "ConnectedThread";
 

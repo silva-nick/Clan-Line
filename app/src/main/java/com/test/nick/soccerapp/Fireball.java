@@ -90,7 +90,7 @@ class Fireball extends Entity {
 
         ArrayList<Entity> enemies = getEnemies();
         for(Entity e : enemies){
-            fighting(e, frame);
+            attack(e, frame);
             if (!getSplashDamage()) break;
         }
     }

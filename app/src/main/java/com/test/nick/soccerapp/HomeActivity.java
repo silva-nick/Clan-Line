@@ -39,7 +39,7 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     private static final String TAG = "HomeActivity";
     private GlobalApplication globalApplication;
 
-    private ArrayList<BluetoothDevice> newDeviceList = new ArrayList<BluetoothDevice>();
+    private final ArrayList<BluetoothDevice> newDeviceList = new ArrayList<BluetoothDevice>();
     private ListView listView;
     private BluetoothAdapter mBluetoothAdapter;
     private BluetoothConnectService mBluetoothConnection;
@@ -153,16 +153,14 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
             if ((ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_ADVERTISE) == PackageManager.PERMISSION_GRANTED)) {
                 Log.d(TAG, "getView: No permissions hehehaha");
                 return view;
-            };
+            }
 
             ImageView imageView = view.findViewById(R.id.imageView);
             TextView textViewName = view.findViewById(R.id.textView_name);
 
             if (newDeviceList.get(i).getName() != null)
                 textViewName.setText(newDeviceList.get(i).getName());
-            else {
-                textViewName.setText(newDeviceList.get(i).getAddress());
-            }
+
             return view;
         }
     }
@@ -193,7 +191,6 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         }
     };
-
 
     @Override
     protected void onDestroy() {
@@ -229,16 +226,14 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
 
         try {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                Log.d(TAG, "onCreate: before");
                 BluetoothManager bluetoothManager = (BluetoothManager) getApplicationContext().getSystemService(Context.BLUETOOTH_SERVICE);
-                Log.d(TAG, "onCreate: after");
                 mBluetoothAdapter =  bluetoothManager.getAdapter();
                 Log.d(TAG, String.valueOf(mBluetoothAdapter == null));
             } else {
                 mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
             }
         } catch (Exception e) {
-            Log.d(TAG, "onCreate: " + e.toString());
+            Log.d(TAG, "onCreate: " + e);
         }
     }
 
@@ -246,26 +241,6 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
     public void startBTConnection(BluetoothDevice device, UUID uuid) {
         Log.d(TAG, "startBTConnection: starting connection");
         mBluetoothConnection.connect(mBTDevice);
-    }
-
-    //Method that changes bton/off status
-    public void enableDisableBT() {
-        if (mBluetoothAdapter == null) {
-            Log.d(TAG, "enableDisableBT: Does not have BT");
-        }
-        if (!mBluetoothAdapter.isEnabled()) {
-            Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivity(intent);
-
-            IntentFilter BTIntent = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
-            registerReceiver(mBroadcastReceiver, BTIntent);
-        }
-        if (mBluetoothAdapter.isEnabled()) {
-            mBluetoothAdapter.disable();
-
-            IntentFilter BTIntent = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
-            registerReceiver(mBroadcastReceiver, BTIntent);
-        }
     }
 
     public void enableDisableConnect() {
@@ -330,7 +305,6 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
             int permissionCheck = this.checkSelfPermission("Manifest.permission.ACCESS_FINE_LOCATION");
             permissionCheck += this.checkSelfPermission("Manifest.permission.ACCESS_COARSE_LOCATION");
             if (permissionCheck != 0) {
-
                 this.requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1001); //Any number
             }
         }else{

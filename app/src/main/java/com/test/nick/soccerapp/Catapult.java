@@ -12,11 +12,11 @@ import java.util.ArrayList;
 class Catapult extends Entity {
     private final GameView game;
 
-    private Bitmap[] northArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south7_1), 100, 140, false),
+    private final Bitmap[] northArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south7_1), 100, 140, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south7_2), 100, 140, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south7_3), 100, 140, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south7_4), 100, 140, false)};
-    private Bitmap[] southArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north7_1), 100, 140, false),
+    private final Bitmap[] southArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north7_1), 100, 140, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north7_2), 100, 140, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north7_3), 100, 140, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north7_4), 100, 140, false)};
@@ -87,15 +87,18 @@ class Catapult extends Entity {
 
         ArrayList<Entity> enemies = getEnemies();
         for (Entity enemy: enemies) {
-            fighting(enemy, frame);
+            attack(enemy, frame);
             break;
         }
     }
 
     @Override
-    public void fighting(Entity enemy, int frame){
+    public void attack(Entity enemy, int frame){
         if(frame%enemy.getAttackSpeed()==0){
-            game.add(new Rock(resources, enemy.getSide(), enemy.getLane()));
+            Rock attack = new Rock(resources, enemy.getSide(), enemy.getLane());
+            attack.setX(this.getX());
+            attack.setY(this.getY());
+            game.add(attack);
         }
     }
 }

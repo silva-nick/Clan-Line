@@ -10,15 +10,15 @@ import android.graphics.Paint;
 import java.util.ArrayList;
 
 class Fighter extends Entity {
-    private Bitmap[] southArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south2_1), 120, 180, false),
+    private final Bitmap[] southArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south2_1), 120, 180, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south2_2), 120, 180, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south2_3), 120, 180, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south2_4), 120, 180, false)};
-    private Bitmap[] northArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north2_1), 120, 180, false),
+    private final Bitmap[] northArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north2_1), 120, 180, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north2_2), 120, 180, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north2_3), 120, 180, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north2_4), 120, 180, false)};
-    private Bitmap[] diagArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diag2_1), 120, 180, false),
+    private final Bitmap[] diagArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diag2_1), 120, 180, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diag2_2), 120, 180, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diag2_3), 120, 180, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diag2_4), 120, 180, false),
@@ -26,7 +26,7 @@ class Fighter extends Entity {
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagr2_2), 120, 180, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagr2_3), 120, 180, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagr2_4), 120, 180, false)};
-    private Bitmap[] diagupArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagup2_1), 120, 180, false),
+    private final Bitmap[] diagupArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagup2_1), 120, 180, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagup2_2), 120, 180, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagup2_3), 120, 180, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagup2_4), 120, 180, false),
@@ -101,13 +101,8 @@ class Fighter extends Entity {
 
     @Override
     public void update(int frame){
-        if(getY()>Resources.getSystem().getDisplayMetrics().heightPixels-780&&
-                getY()<Resources.getSystem().getDisplayMetrics().heightPixels-500){
-            setDiagonal(true);
-        }
-        else{
-            setDiagonal(false);
-        }
+        setDiagonal(getY() > Resources.getSystem().getDisplayMetrics().heightPixels - 780 &&
+                getY() < Resources.getSystem().getDisplayMetrics().heightPixels - 500);
 
         if(isSouth() && !isFighting()) {
             if(isDiagonal()){
@@ -123,7 +118,7 @@ class Fighter extends Entity {
         }
         ArrayList<Entity> enemies = getEnemies();
         for(Entity e : enemies){
-            fighting(e, frame);
+            attack(e, frame);
             if (!getSplashDamage()) break;
         }
     }

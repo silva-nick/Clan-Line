@@ -21,11 +21,11 @@ public class BluetoothConnectService {
             UUID.fromString("16d02b8e-ec1e-4a00-bc20-ad8a84416b04");
 
     private final BluetoothAdapter mBluetoothAdapter;
-    private Context context;
+    private final Context context;
 
     private transient AcceptThread acceptThread;
     private transient ConnectThread connectThread;
-    private Handler handler;
+    private final Handler handler;
 
     public BluetoothConnectService(Context context, Handler h, GlobalApplication app){
         this.context = context;

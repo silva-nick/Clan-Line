@@ -95,7 +95,7 @@ public class GameActivity extends AppCompatActivity {
     private final int[] selectedTiles = {R.drawable.chartile_selected_1, R.drawable.chartile_selected_2,
             R.drawable.chartile_selected_3, R.drawable.chartile_selected_4, R.drawable.chartile_selected_5,
             R.drawable.chartile_selected_6, R.drawable.chartile_selected_7};
-    private int[] currentChars = new int[MAX_HEROS];
+    private final int[] currentChars = new int[MAX_HEROS];
 
     private ConnectedThread messageThread;
     private final Random rng = new Random();

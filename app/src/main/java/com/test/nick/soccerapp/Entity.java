@@ -10,10 +10,17 @@ import java.util.ArrayList;
 public abstract class Entity {
     private static final String TAG = "Entity";
     private String name;
-    private int speed,  damage, attackSpeed, health, range;
+    private final int speed;
+    private int damage;
+    private final int attackSpeed;
+    private int health;
+    private final int range;
     private int x, y;
-    private boolean side, lane, splashDamage, diagonal;
-    private ArrayList<Entity> enemies = new ArrayList<Entity>();
+    private final boolean side;
+    private final boolean lane;
+    private final boolean splashDamage;
+    private boolean diagonal;
+    private final ArrayList<Entity> enemies = new ArrayList<Entity>();
     static Resources resources;
 
     public Entity(String name, int speed, int damage, int attackSpeed, int health, int range, boolean splashDamage, boolean side, boolean lane, Resources maps) {
@@ -116,11 +123,12 @@ public abstract class Entity {
     }
 
     public void setFighting(Entity e){
-        if(e==null){
+        if(e == null){
             enemies.remove(e);
             Log.d(TAG, "Enemy removed");
         }
-        if(enemies.contains(e)){return;}
+
+        if(enemies.contains(e)){ return; }
         enemies.add(e);
     }
 
@@ -132,9 +140,9 @@ public abstract class Entity {
         return enemies;
     }
 
-    public void fighting(Entity enemy, int frame){
-        if(frame%enemy.getAttackSpeed()==0){
-            this.setHealth(this.getHealth()-enemy.getDamage());
+    public void attack(Entity enemy, int frame) {
+        if(frame % this.getAttackSpeed() == 0){
+            enemy.setHealth(enemy.getHealth() - this.getDamage());
         }
     }
 

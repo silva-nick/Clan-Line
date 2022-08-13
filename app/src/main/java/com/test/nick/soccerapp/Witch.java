@@ -10,15 +10,15 @@ import android.graphics.Paint;
 import java.util.ArrayList;
 
 class Witch extends Entity {
-    private Bitmap[] southArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south1_1), 100, 140, false),
+    private final Bitmap[] southArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south1_1), 100, 140, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south1_2), 100, 140, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south1_3), 100, 140, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south1_4), 100, 140, false)};
-    private Bitmap[] northArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north1_1), 100, 140, false),
+    private final Bitmap[] northArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north1_1), 100, 140, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north1_2), 100, 140, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north1_3), 100, 140, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north1_4), 100, 140, false)};
-    private Bitmap[] diagArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diag1_1), 100, 140, false),
+    private final Bitmap[] diagArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diag1_1), 100, 140, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diag1_2), 100, 140, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diag1_3), 100, 140, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diag1_4), 100, 140, false),
@@ -26,7 +26,7 @@ class Witch extends Entity {
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagr1_2), 100, 140, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagr1_3), 100, 140, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagr1_4), 100, 140, false)};
-    private Bitmap[] diagupArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagup1_1), 100, 140, false),
+    private final Bitmap[] diagupArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagup1_1), 100, 140, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagup1_2), 100, 140, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagup1_3), 100, 140, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.diagup1_4), 100, 140, false),
@@ -101,13 +101,8 @@ class Witch extends Entity {
 
     @Override
     public void update(int frame){
-        if(getY()>Resources.getSystem().getDisplayMetrics().heightPixels-750&&
-                getY()<Resources.getSystem().getDisplayMetrics().heightPixels-460){
-            setDiagonal(true);
-        }
-        else{
-            setDiagonal(false);
-        }
+        setDiagonal(getY() > Resources.getSystem().getDisplayMetrics().heightPixels - 750 &&
+                getY() < Resources.getSystem().getDisplayMetrics().heightPixels - 460);
 
         if(isSouth() && !isFighting()) {
             if(isDiagonal()){
@@ -124,7 +119,7 @@ class Witch extends Entity {
 
         ArrayList<Entity> enemies = getEnemies();
         for(Entity e : enemies){
-            fighting(e, frame);
+            attack(e, frame);
             if (!getSplashDamage()) break;
         }
     }

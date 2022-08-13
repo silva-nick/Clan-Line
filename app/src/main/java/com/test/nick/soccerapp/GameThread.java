@@ -6,8 +6,8 @@ import android.view.SurfaceHolder;
 
 public class GameThread extends Thread {
     final static String TAG = "GameThread";
-    private SurfaceHolder surfaceHolder;
-    private GameView gameView;
+    private final SurfaceHolder surfaceHolder;
+    private final GameView gameView;
     private boolean running;
     private static Canvas canvas;
 

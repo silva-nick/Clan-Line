@@ -10,15 +10,15 @@ import android.graphics.Paint;
 import java.util.ArrayList;
 
 class Slime extends Entity {
-    private Bitmap[] southArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south4_1), 100, 100, false),
+    private final Bitmap[] southArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south4_1), 100, 100, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south4_2), 100, 100, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south4_3), 100, 100, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south4_4), 100, 100, false)};
-    private Bitmap[] northArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north4_1), 100, 100, false),
+    private final Bitmap[] northArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north4_1), 100, 100, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north4_2), 100, 100, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north4_3), 100, 100, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.north4_4), 100, 100, false)};
-    private Bitmap[] deathArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.explode1_1), 100, 100, false),
+    private final Bitmap[] deathArray = new Bitmap[]{Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.explode1_1), 100, 100, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.explode1_1), 100, 100, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.explode1_2), 100, 100, false),
             Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.explode1_3), 100, 100, false),
@@ -92,13 +92,8 @@ class Slime extends Entity {
 
     @Override
     public void update(int frame){
-        if(getY()>Resources.getSystem().getDisplayMetrics().heightPixels-680&&
-                getY()<Resources.getSystem().getDisplayMetrics().heightPixels-390){
-            setDiagonal(true);
-        }
-        else{
-            setDiagonal(false);
-        }
+        setDiagonal(getY() > Resources.getSystem().getDisplayMetrics().heightPixels - 680 &&
+                getY() < Resources.getSystem().getDisplayMetrics().heightPixels - 390);
 
         if(isSouth() && !isFighting()) {
             if(isDiagonal()){
@@ -114,7 +109,7 @@ class Slime extends Entity {
         }
         ArrayList<Entity> enemies = getEnemies();
         for(Entity e : enemies){
-            fighting(e, frame);
+            attack(e, frame);
             if (!getSplashDamage()) break;
         }
     }

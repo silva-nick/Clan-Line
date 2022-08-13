@@ -15,9 +15,9 @@ import java.util.ArrayList;
 
 class GameView extends SurfaceView implements SurfaceHolder.Callback{
     private static final String TAG = "GameView";
-    private GameThread mainThread;
+    private final GameThread mainThread;
     private int count = 0;
-    private ArrayList<Entity> charList;
+    private final ArrayList<Entity> charList;
     private ConnectedThread messageThread;
     private Bitmap background;
 
