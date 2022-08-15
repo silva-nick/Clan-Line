@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -21,10 +22,10 @@ class Fireball extends Entity {
 
     private Bitmap currentBitmap = northSprite;
 
-    private int startFrame = 0;
+    private int startFrame = -1;
 
     public Fireball(Resources resources, boolean side, boolean lane){
-        super("Fireball",14,500,14,100, 15, true, side, lane, resources);
+        super("Fireball",14,500,1,1000, 15, true, side, lane, resources);
 
         if(isSouth()){
             setX(isLeft() ? (180) : (Resources.getSystem().getDisplayMetrics().widthPixels-340));
@@ -57,13 +58,6 @@ class Fireball extends Entity {
             int nextBitmapIdx = Math.floorDiv(frame - startFrame, 10);
             if (nextBitmapIdx <= 3) {
                 currentBitmap = deathArray[nextBitmapIdx];
-            } else {
-                if (startFrame % 10 < 3) {
-                    currentBitmap = isSouth() ? southSprite : northSprite;
-                    startFrame = 0;
-                } else {
-                    setHealth(-1);
-                }
             }
         }
 
@@ -92,6 +86,15 @@ class Fireball extends Entity {
         for(Entity e : enemies){
             attack(e, frame);
             if (!getSplashDamage()) break;
+        }
+
+        if (!enemies.isEmpty()) {
+            if (startFrame % 10 <= 2) {
+                currentBitmap = isSouth() ? southSprite : northSprite;
+                startFrame = 0;
+            } else {
+                setHealth(0);
+            }
         }
     }
 }

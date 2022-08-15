@@ -69,6 +69,11 @@ public class ConnectedThread extends Thread{
         try {
             outputStream. write(bytes);
             Log.d(TAG, "write: writing to the outputstream");
+            Log.d(TAG, "write: " + String.valueOf((int)bytes[0]));
+            Log.d(TAG, "write: " + String.valueOf((int)bytes[1]));
+            Log.d(TAG, "write: " + String.valueOf((int)bytes[2]));
+            Log.d(TAG, "write: " + String.valueOf((int)bytes[3]));
+
         } catch (IOException e) {
             Log.e(TAG, "write: Error writing to output stream. ", e );
         }

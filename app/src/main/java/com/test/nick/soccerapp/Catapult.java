@@ -30,16 +30,14 @@ class Catapult extends Entity {
 
         if(isSouth()){
             setX(isLeft() ? (180) : (Resources.getSystem().getDisplayMetrics().widthPixels-340));
-        }
-        else{
+        } else{
             setX(Resources.getSystem().getDisplayMetrics().widthPixels/2-50);
         }
 
 
         if(isSouth()) {
             setY(-50);
-        }
-        else{
+        } else{
             setY(Resources.getSystem().getDisplayMetrics().heightPixels-120);
         }
 

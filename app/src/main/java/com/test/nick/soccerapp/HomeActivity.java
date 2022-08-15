@@ -158,9 +158,11 @@ public class HomeActivity extends AppCompatActivity implements AdapterView.OnIte
             ImageView imageView = view.findViewById(R.id.imageView);
             TextView textViewName = view.findViewById(R.id.textView_name);
 
-            if (newDeviceList.get(i).getName() != null)
+            if (newDeviceList.get(i).getName() != null) {
                 textViewName.setText(newDeviceList.get(i).getName());
-
+            } else {
+                textViewName.setText("uwu device");
+            }
             return view;
         }
     }

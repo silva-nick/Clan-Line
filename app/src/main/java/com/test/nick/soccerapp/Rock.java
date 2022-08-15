@@ -14,7 +14,7 @@ class Rock extends Entity {
     private Bitmap currentBitmap = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(Entity.getResources(), R.drawable.south_rock), 60, 100, false);
 
     public Rock(Resources resources, boolean side, boolean lane){
-        super("Rock",24,300,14,1, 15, true, side, lane, resources);
+        super("Rock",24,300,1,1, 15, true, side, lane, resources);
 
         if(isSouth()){
             setX(isLeft() ? (180) : (Resources.getSystem().getDisplayMetrics().widthPixels-340));
@@ -68,5 +68,6 @@ class Rock extends Entity {
             attack(e, frame);
             if (!getSplashDamage()) break;
         }
+        setHealth(-1);
     }
 }

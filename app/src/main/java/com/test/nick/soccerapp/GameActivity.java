@@ -31,7 +31,7 @@ public class GameActivity extends AppCompatActivity {
     public static final int HERO_SEVEN = 6;
     public static final int HERO_EIGHT = 7;
 
-    public static final int NUM_HEROS = 7;
+    public static final int NUM_HEROS = 6;
     public static final int MAX_HEROS = 4;
 
     @SuppressLint("HandlerLeak")
@@ -72,7 +72,11 @@ public class GameActivity extends AppCompatActivity {
                             entity = new Rock(getResources(), true, readBuf[1]!=1);
                             break;
                     }
-                    entity.setHealth(readBuf[2]);
+
+                    Log.d(TAG, "handleMessage: "+readBuf.toString());
+
+                    entity.setHealth(readBuf[3] << 8 | readBuf[2]);
+
                     gameView.add(entity);
                     break;
                 case 1:

@@ -141,6 +141,10 @@ public abstract class Entity {
     }
 
     public void attack(Entity enemy, int frame) {
+        if (enemy.getName().equals("Fireball") || enemy.getName().equals("Rock")) {
+            return;
+        }
+
         if(frame % this.getAttackSpeed() == 0){
             enemy.setHealth(enemy.getHealth() - this.getDamage());
         }
