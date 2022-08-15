@@ -75,7 +75,7 @@ public class GameActivity extends AppCompatActivity {
 
                     Log.d(TAG, "handleMessage: "+readBuf.toString());
 
-                    entity.setHealth(readBuf[3] << 8 | readBuf[2]);
+                    entity.setHealth((readBuf[3]&0xFF) << 8 | (readBuf[2]&0xFF));
 
                     gameView.add(entity);
                     break;

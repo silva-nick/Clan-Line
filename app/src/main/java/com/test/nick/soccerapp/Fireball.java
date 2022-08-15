@@ -94,6 +94,7 @@ class Fireball extends Entity {
                 startFrame = 0;
             } else {
                 setHealth(0);
+                setDamage(0);
             }
         }
     }

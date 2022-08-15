@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.SurfaceView;
 import android.view.SurfaceHolder;
 
@@ -114,7 +115,7 @@ class GameView extends SurfaceView implements SurfaceHolder.Callback{
                 }
                 messageArray[1] = (byte) (e.isLeft() ? 1 : 0);
                 messageArray[2] = (byte) (e.getHealth() & 0xFF);
-                messageArray[3] = (byte) ((e.getHealth() >> 8) & 0xFF);
+                messageArray[3] = (byte) (e.getHealth() >>> 8);
 
                 charList.remove(e);
                 e = null;
